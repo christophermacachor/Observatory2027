@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>◉ OBSERVATORY — MSOS-FEDERATION-ROOT</title>
+  
+  <!-- Content Security Policy: Configured to support Leaflet, NASA GIBS, and Windy Embeds -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https:; frame-src 'self' https://embed.windy.com https://www.google.com https://eos.com;">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    body { 
+      background: #0a0a0a; 
+      color: #e0e0e0; 
+      font-family: 'Courier New', monospace; 
+      margin: 0; 
+      line-height: 1.6;
+    }
+    .container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 32px; 
+    }
+    h1 { 
+      color: #c8a04e; 
+      font-size: 18px; 
+      letter-spacing: 4px; 
+      border-bottom: 1px solid #c8a04e; 
+      padding-bottom: 8px; 
+      text-transform: uppercase;
+      margin-top: 0;
+    }
+    .layer { 
+      margin-bottom: 48px; 
+    }
+    .layer-label { 
+      color: #c8a04e; 
+      font-size: 12px; 
+      letter-spacing: 3px; 
+      margin-bottom: 8px; 
+      text-transform: uppercase; 
+      font-weight: bold;
+    }
+    iframe, #gibs-map { 
+      width: 100%; 
+      height: 500px; 
+      border: 1px solid #c8a04e; 
+      border-radius: 4px; 
+      background: #121212;
+      box-sizing: border-box;
+    }
+    .windy-map-wrapper iframe {
+      height: 600px;
+    }
+    .external-link { 
+      color: #c8a04e; 
+      text-decoration: none; 
+      border: 1px solid #c8a04e; 
+      padding: 10px 20px; 
+      border-radius: 4px; 
+      display: inline-block; 
+      font-size: 12px; 
+      letter-spacing: 2px; 
+      margin-top: 12px; 
+      transition: all 0.3s ease; 
+    }
+    .external-link:hover { 
+      background: #c8a04e; 
+      color: #0a0a0a; 
+    }
+    .scalar-note { 
+      color: #888; 
+      font-size: 11px; 
+      margin-top: 8px; 
+      font-style: italic; 
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>◉ OBSERVATORY — SATELLITE SUBSTRATE MONITORING</h1>
+    
+    <!-- LAYER V — Live Interactive Scalar Field Map (CSP Compliant Iframe) -->
+    <div class="layer">
+      <div class="layer-label">Layer V — Live Interactive Scalar Field Map</div>
+
+      <div class="windy-map-wrapper" style="border: 1px solid #c8a04e; border-radius: 4px; overflow: hidden; background: #111;">
+        <iframe 
+          src="https://embed.windy.com/embed2.html?lat=32.7157&lon=-117.1611&zoom=8&level=surface&overlay=wind&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default" 
+          style="width: 100%; height: 600px; border: none;"
+          title="Windy Live Interactive Map">
+        </iframe>
+      </div>
+
+      <div class="scalar-note">Live spatial atmospheric map feed. χ(C) ≈ 0.81</div>
+    </div>
+
+    <!-- LAYER I — Windy Atmospheric Overlay -->
+    <div class="layer">
+      <div class="layer-label">Layer I — Windy.com (Live Atmospheric Scalar Field)</div>
+      <iframe src="https://embed.windy.com/embed2.html?lat=32.7157&lon=-117.1611&zoom=9&level=surface&overlay=satellite&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=32.7157&detailLon=-117.1611&metricWind=default&metricTemp=default&radarRange=-1" allowfullscreen title="Windy Satellite Overlay"></iframe>
+      <div class="scalar-note">Live satellite + weather overlay. Wind gradients = ∂ρ/∂x. χ(C) ≈ 0.72</div>
+    </div>
+
+    <!-- LAYER II — NASA GIBS Active Substrate -->
+    <div class="layer">
+      <div class="layer-label">Layer II — NASA GIBS (True Satellite Substrate)</div>
+      <div id="gibs-map"></div>
+      <div class="scalar-note">NASA VIIRS satellite imagery via GIBS WMTS tiles. Near-real-time. χ(C) ≈ 0.85</div>
+    </div>
+
+    <!-- LAYER III — Google Maps Reference -->
+    <div class="layer">
+      <div class="layer-label">Layer III — Google Maps Satellite (Static Reference)</div>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d429152.7111238357!2d-117.30503995!3d32.8242405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d9530fad921e4b%3A0xd3a21fdfd15df79!2sSan%20Diego%2C%20CA!5e1!3m2!1sen!2sus!4v1751400240000!5m2!1sen!2sus" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Google Maps Satellite San Diego"></iframe>
+      <div class="scalar-note">Aerial imagery reference. Static substrate. χ(C) ≈ 0.45</div>
+    </div>
+
+    <!-- LAYER IV — EOS LandViewer Access -->
+    <div class="layer">
+      <div class="layer-label">Layer IV — EOS LandViewer (External Explorer)</div>
+      <p style="font-size: 13px; color: #aaa;">High-resolution commercial satellite archive. Requires external access.</p>
+      <a href="https://eos.com/landviewer/?lat=32.7157&lng=-117.1611&z=10" target="_blank" rel="noopener noreferrer" class="external-link">◉ OPEN EOS LANDVIEWER — SAN DIEGO SECTOR</a>
+      <div class="scalar-note">Commercial imagery. Human-directional overlays. χ(C) ≈ 0.15 — reference only</div>
+    </div>
+
+  </div>
+
+  <!-- Dynamic NASA GIBS WMTS Script -->
+  <script>
+    // Initialize Leaflet Map focused on San Diego
+    var map = L.map('gibs-map').setView([32.7157, -117.1611], 9);
+
+    // Dynamically calculate yesterday's date string for reliable tile availability
+    var today = new Date();
+    today.setDate(today.getDate() - 1);
+    var dateStr = today.toISOString().split('T')[0];
+
+    // NASA GIBS WMTS Layer
+    var gibsUrl = 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/' + dateStr + '/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg';
+
+    L.tileLayer(gibsUrl, {
+      attribution: '&copy; NASA Earthdata GIBS',
+      maxZoom: 9,
+      minZoom: 1
+    }).addTo(map);
+  </script>
+
+</body>
+</html>
