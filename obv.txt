@@ -1,0 +1,19 @@
+Observatory2027/
+├── index.html
+├── functions/
+│   └── api/
+│       ├── health.js
+│       ├── noaa/
+│       │   ├── all.js
+│       │   ├── kp.js
+│       │   ├── dst.js
+│       │   ├── mag.js
+│       │   └── wind.js
+│       └── scalar/
+│           ├── latest.js
+│           ├── coherence.js
+│           ├── field.js
+│           └── accuracy.js
+├── _routes.json
+├── wrangler.toml
+└── package.json
