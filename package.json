@@ -1,0 +1,23 @@
+{
+  "name": "scalar-plasma-cycle",
+  "version": "5.1.0",
+  "description": "Scalar-Plasma Cycle with 4D MGDH Complete and Wild Tetrahedra",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'No build needed'",
+    "dev": "wrangler pages dev ./",
+    "deploy": "wrangler pages deploy ./ --project-name=scalar-plasma"
+  },
+  "keywords": [
+    "scalar",
+    "plasma",
+    "mgdh",
+    "tetrahedra",
+    "quantum"
+  ],
+  "author": "Christopher Macachor",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
