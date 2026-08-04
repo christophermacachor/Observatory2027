@@ -1,0 +1,28 @@
+# wrangler.toml - Cloudflare Pages + Workers configuration
+
+name = "scalar-plasma"
+type = "pages"
+pages_build_output_dir = "/"
+
+[env.production]
+routes = [
+  { pattern = "macachor.org/*", zone_name = "macachor.org" }
+]
+
+[env.staging]
+routes = [
+  { pattern = "staging.macachor.org/*", zone_name = "macachor.org" }
+]
+
+[vars]
+ENVIRONMENT = "production"
+NOAA_CACHE_DURATION = "300"
+MAX_RETRY_ATTEMPTS = "3"
+
+[build]
+command = "echo 'Static site - no build needed'"
+cwd = "/"
+
+[compatibility]
+date = "2024-01-01"
+flags = ["nodejs_compat"]
