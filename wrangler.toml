@@ -1,13 +1,9 @@
-# wrangler.toml
-
-name = "scalar-plasma"
-type = "pages"
+# wrangler.toml - For Cloudflare Pages
+name = "observatory2027"
+pages_build_output_dir = "/"
+compatibility_date = "2026-01-01"
 
 [env.production]
 routes = [
-  { pattern = "macachor.org/*", zone_name = "macachor.org" }
+  { pattern = "space.macachor.org/*", zone_name = "macachor.org" }
 ]
-
-[build]
-command = "echo 'No build needed'"
-cwd = "/"
