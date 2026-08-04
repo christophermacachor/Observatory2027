@@ -1,9 +1,2 @@
-# wrangler.toml - For Cloudflare Pages
 name = "observatory2027"
-pages_build_output_dir = "/"
-compatibility_date = "2026-01-01"
-
-[env.production]
-routes = [
-  { pattern = "space.macachor.org/*", zone_name = "macachor.org" }
-]
+compatibility_date = "2026-08-04"
