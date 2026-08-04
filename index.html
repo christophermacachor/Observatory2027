@@ -148,7 +148,6 @@
     --wild: #ff6b6b;
   }
   
-  /* Reset for scalar section */
   .scalar-section {
     background: var(--bg);
     color: var(--fg);
@@ -199,7 +198,6 @@
     margin-right: 4px;
   }
 
-  /* Scalar canvas container */
   #canvas-container {
     position: relative;
     width: 100%;
@@ -213,7 +211,6 @@
     height: 100%;
   }
 
-  /* Info overlay adjustments for scalar section */
   .scalar-section #info-overlay {
     position: absolute;
     top: 16px;
@@ -271,7 +268,6 @@
     font-style: italic;
   }
 
-  /* Live data overlay */
   .scalar-section #live-data {
     position: absolute;
     top: 16px;
@@ -328,7 +324,6 @@
     text-align: center;
   }
 
-  /* Controls */
   .scalar-section #controls {
     position: absolute;
     bottom: 20px;
@@ -382,7 +377,6 @@
     font-size: 9px;
   }
 
-  /* Scalar banner */
   .scalar-4d-banner {
     position: absolute;
     top: 2.8rem;
@@ -453,9 +447,7 @@
     margin: 0 auto 10px;
   }
   @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
   }
 
   .scalar-section #scalar-readout {
@@ -474,18 +466,6 @@
     color: #c8a04e;
     text-align: center;
     white-space: nowrap;
-  }
-  .scalar-section #scalar-readout .mgdh-highlight {
-    color: #ffd700;
-  }
-  .scalar-section #scalar-readout .accuracy-highlight {
-    color: #4ec88a;
-  }
-  .scalar-section #scalar-readout .gateway-highlight {
-    color: #4a9eff;
-  }
-  .scalar-section #scalar-readout .wild-highlight {
-    color: #ff6b6b;
   }
 
   .scalar-section #perf-readout {
@@ -555,10 +535,6 @@
   }
   .scalar-section #model-attribution .model-name {
     color: #888;
-    margin: 0px 0;
-  }
-  .scalar-section #model-attribution .mgdh-name {
-    color: #ffd700;
     margin: 0px 0;
   }
   .scalar-section #model-attribution .mgdh-credit {
@@ -698,11 +674,11 @@
       <div class="scalar-note">Live satellite + weather. χ(C) ≈ 0.72</div>
     </div>
 
-    <!-- Layer II: NASA GIBS -->
+    <!-- Layer II: NASA GIBS (FIXED) -->
     <div class="observatory-card">
       <div class="card-label">Layer II — NASA GIBS (True Satellite Substrate)</div>
       <div id="gibs-map"></div>
-      <div class="scalar-note">NASA VIIRS satellite imagery via GIBS. Near-real-time. χ(C) ≈ 0.85</div>
+      <div class="scalar-note" id="gibs-note">NASA satellite imagery via GIBS. Loading latest available data...</div>
     </div>
 
     <!-- Layer III: Google Maps -->
@@ -856,65 +832,85 @@
 <!-- SCRIPTS                                 -->
 <!-- ════════════════════════════════════════ -->
 
-<!-- NASA GIBS Map Script -->
+<!-- NASA GIBS Map Script (FIXED) -->
 <script>
+(function() {
   // Initialize Leaflet Map focused on San Diego
   var map = L.map('gibs-map').setView([32.7157, -117.1611], 9);
 
-  // Use multiple date fallbacks for tile availability
-  var dates = [];
-  for (var d = 0; d < 5; d++) {
-    var date = new Date();
-    date.setDate(date.getDate() - d);
-    dates.push(date.toISOString().split('T')[0]);
-  }
-
-  // Try GIBS with fallback dates
-  var gibsLayer = null;
-  var currentDateIndex = 0;
-
-  function tryGIBSLayer() {
-    if (currentDateIndex >= dates.length) {
-      // Fallback: Use OSM or another tile source
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors',
-        maxZoom: 19
-      }).addTo(map);
-      document.querySelector('.observatory-card .scalar-note').textContent = 'NASA GIBS unavailable — using OpenStreetMap fallback.';
-      return;
-    }
-
-    var dateStr = dates[currentDateIndex];
-    var gibsUrl = 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/' + dateStr + '/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg';
-
-    if (gibsLayer) {
-      map.removeLayer(gibsLayer);
-    }
-
-    gibsLayer = L.tileLayer(gibsUrl, {
+  // NASA GIBS WMTS Layer - Using Blue Marble as fallback
+  var gibsLayer = L.tileLayer(
+    'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/{z}/{y}/{x}.jpg',
+    {
       attribution: '&copy; NASA Earthdata GIBS',
+      maxZoom: 12,
+      minZoom: 1
+    }
+  ).addTo(map);
+
+  // Try to get True Color layer with date fallback
+  function tryTrueColor(dateOffset) {
+    var date = new Date();
+    date.setDate(date.getDate() - dateOffset);
+    var dateStr = date.toISOString().split('T')[0];
+    
+    var trueColorUrl = 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/' + dateStr + '/GoogleMapsCompatible_Level9/{z}/{y}/{x}.jpg';
+    
+    var testLayer = L.tileLayer(trueColorUrl, {
       maxZoom: 9,
       minZoom: 1,
       errorTileUrl: '',
       crossOrigin: true
     });
 
-    gibsLayer.on('tileerror', function(error) {
-      console.warn('GIBS tile error for date:', dateStr);
-      currentDateIndex++;
-      tryGIBSLayer();
+    var tileLoaded = false;
+    var tileError = false;
+
+    // Test if tiles load
+    testLayer.on('tileload', function() {
+      if (!tileLoaded) {
+        tileLoaded = true;
+        // Switch to true color
+        map.removeLayer(gibsLayer);
+        gibsLayer = testLayer;
+        gibsLayer.addTo(map);
+        document.getElementById('gibs-note').textContent = 'NASA VIIRS True Color. Date: ' + dateStr + ' | χ(C) ≈ 0.85';
+      }
     });
 
-    gibsLayer.addTo(map);
-    document.querySelector('.observatory-card .scalar-note').textContent = 'NASA VIIRS satellite imagery via GIBS. Date: ' + dateStr + ' | χ(C) ≈ 0.85';
+    testLayer.on('tileerror', function() {
+      tileError = true;
+      // Try next date
+      if (dateOffset < 7) {
+        tryTrueColor(dateOffset + 1);
+      } else {
+        document.getElementById('gibs-note').textContent = 'NASA GIBS: Using Blue Marble fallback. True Color unavailable.';
+      }
+    });
+
+    // Add test layer temporarily to check
+    testLayer.addTo(map);
+    // Remove after 3 seconds if it doesn't load
+    setTimeout(function() {
+      if (!tileLoaded && !tileError) {
+        map.removeLayer(testLayer);
+        if (dateOffset < 7) {
+          tryTrueColor(dateOffset + 1);
+        }
+      } else if (!tileLoaded) {
+        map.removeLayer(testLayer);
+      }
+    }, 3000);
   }
 
-  // Start with the most recent date
-  tryGIBSLayer();
+  // Start trying with today's date
+  setTimeout(function() {
+    tryTrueColor(0);
+  }, 1000);
 
-  // Add a small status indicator
+  // Add status control
   var statusControl = L.control({ position: 'bottomright' });
-  statusControl.onAdd = function(map) {
+  statusControl.onAdd = function() {
     var div = L.DomUtil.create('div', 'info');
     div.style.background = 'rgba(0,0,0,0.7)';
     div.style.color = '#c8a04e';
@@ -928,6 +924,7 @@
   statusControl.addTo(map);
 
   console.log('%c[Observatory] NASA GIBS Map initialized', 'color: #c8a04e;');
+})();
 </script>
 
 <!-- ── SCALAR-PLASMA CYCLE SCRIPT ── -->
@@ -941,8 +938,6 @@
 const PHI_FULL = 0.61803398874989484820458683436563811772030917980576;
 const PHI = (Math.sqrt(5) - 1) / 2;
 const M = PHI;
-const MGDH_NAMES = ['Macachor', 'Gauss', 'De Pretto', 'Hamilton'];
-const MGDH_LAGRANGIAN = 'ℒ = ||Ψ||² − 𝔐·∇·Ψ + Φ·Ψ';
 const GEOMAGNETIC_TILT = 0.2;
 
 // ── WILD TETRAHEDRA — From arXiv:2411.14924 ──
@@ -950,16 +945,9 @@ const WILD_EDGE_A = 1;
 const WILD_EDGE_B = Math.sqrt(150 + 30 * Math.sqrt(5)) / 10;
 const WILD_EDGE_C = (Math.sqrt(5) + 1) / 2;
 
-// ── Ω-GATEWAY URL ──
+// ── API ENDPOINTS ──
 const GATEWAY_URL = 'https://coherence-gateway.onrender.com';
-
-// ── NOAA DIRECT FETCH (Fallback) ──
-const NOAA = {
-  kp:      'https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json',
-  dst:     'https://services.swpc.noaa.gov/products/kyoto-dst.json',
-  rtswMag: 'https://services.swpc.noaa.gov/json/rtsw/rtsw_mag_lm.json',
-  rtswWind:'https://services.swpc.noaa.gov/json/rtsw/rtsw_wind_lm.json'
-};
+const NOAA_API = window.location.origin + '/api/noaa/all';
 
 // ── QUATERNIONIC MATH ──────────────────────────────────────────────
 function qAdd(a, b) { return { w: a.w + b.w, x: a.x + b.x, y: a.y + b.y, z: a.z + b.z }; }
@@ -1336,6 +1324,40 @@ async function fetchNOAAData() {
     connMsg.textContent = 'Linking to Ω-Gateway...';
   }
 
+  // Try local API first (if deployed)
+  try {
+    const resp = await fetch(NOAA_API, {
+      signal: AbortSignal.timeout(5000)
+    });
+    if (resp.ok) {
+      const data = await resp.json();
+      if (data && data.success) {
+        const d = data.data || {};
+        spaceWeather.kp = d.kp || 2.0;
+        spaceWeather.ae = d.ae || 50;
+        spaceWeather.dst = d.dst || 0;
+        spaceWeather.bz = d.bz || 0;
+        spaceWeather.by = d.by || 0;
+        spaceWeather.bx = d.bx || 0;
+        spaceWeather.swSpeed = d.speed || 400;
+        spaceWeather.swDensity = d.density || 5;
+        spaceWeather.connected = true;
+        spaceWeather.lppMethod = 'Cloudflare API';
+        spaceWeather.gatewayStatus = 'CONNECTED';
+        dataStatus.textContent = '✅ Live via API';
+        dataStatus.style.color = '#4ec88a';
+        connMsg.textContent = '✅ API connected.';
+        setTimeout(() => connStatus.classList.remove('visible'), 1500);
+        updateUI();
+        loadingEl.classList.add('hidden');
+        return;
+      }
+    }
+  } catch (e) {
+    console.warn('Local API error:', e);
+  }
+
+  // Try Gateway
   const gatewayData = await fetchGatewayData();
   if (gatewayData) {
     const scalar = gatewayData.scalar || {};
@@ -1365,15 +1387,15 @@ async function fetchNOAAData() {
     return;
   }
 
-  // ── Fallback: Direct NOAA fetch ──
+  // Fallback: Direct NOAA
   let kpData = null, dstData = null, magData = null, windData = null;
 
   try {
     const [kpResp, dstResp, magResp, windResp] = await Promise.allSettled([
-      fetchJSON(NOAA.kp),
-      fetchJSON(NOAA.dst),
-      fetchJSON(NOAA.rtswMag),
-      fetchJSON(NOAA.rtswWind)
+      fetchJSON('https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json'),
+      fetchJSON('https://services.swpc.noaa.gov/products/kyoto-dst.json'),
+      fetchJSON('https://services.swpc.noaa.gov/json/rtsw/rtsw_mag_lm.json'),
+      fetchJSON('https://services.swpc.noaa.gov/json/rtsw/rtsw_wind_lm.json')
     ]);
 
     if (kpResp.status === 'fulfilled') kpData = kpResp.value;
@@ -1570,7 +1592,6 @@ function drawWildTorus(cx, cy, scale, alpha) {
   const minorRadius = scale * 0.25;
   const twist = t * 0.3;
 
-  // Draw the torus backbone
   ctx.strokeStyle = `rgba(255,107,107,${alpha * 0.3})`;
   ctx.lineWidth = 1;
   ctx.beginPath();
@@ -1584,7 +1605,6 @@ function drawWildTorus(cx, cy, scale, alpha) {
   }
   ctx.stroke();
 
-  // Draw individual wild tetrahedra
   for (let i = 0; i < numTetra; i++) {
     const theta = (i / numTetra) * Math.PI * 2 + twist * 0.5;
     const phi = i * 1.2 + twist * 0.3;
@@ -1905,7 +1925,6 @@ function drawSceneWithDT(cx, cy, scale, alpha, phase) {
   const Psi = dtModel.computeState(3 * dtModel.R_E, 2 * dtModel.R_E, 1 * dtModel.R_E);
   drawQuaternionicDipoleLines(Psi.B_dip, scale, alpha);
   drawQuaternionicToroidalField(Psi.B_tor, scale, alpha);
-  const magnitude = dtModel.getScalarMagnitude(Psi);
   const magSq = dtModel.getScalarMagnitudeSq(Psi);
   const coherence = dtModel.getCoherence();
 
