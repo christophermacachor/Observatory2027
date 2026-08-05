@@ -41,6 +41,17 @@
   
   "routes": [
     {
+      "pattern": "space.macachor.org",
+      "custom_domain": true
+    }
+  ]
+}    "APP_NAME": "Observatory2027",
+    "APP_EMAIL": "contact@macachor.org",
+    "ENVIRONMENT": "production"
+  },
+  
+  "routes": [
+    {
       "pattern": "space.macachor.org/*",
       "custom_domain": true
     }
