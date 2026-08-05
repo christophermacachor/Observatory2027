@@ -1,11 +1,3 @@
-# 1. Download the current file to check
-curl -o wrangler.jsonc https://raw.githubusercontent.com/christophermacachor/Observatory2027/main/wrangler.jsonc
-
-# 2. Edit the file - remove "/*" from routes
-# Change "space.macachor.org/*" to "space.macachor.org"
-
-# 3. Or create the correct file directly
-cat > wrangler.jsonc << 'EOF'
 {
   "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
   "name": "observatory2027",
@@ -20,38 +12,22 @@ cat > wrangler.jsonc << 'EOF'
   "kv_namespaces": [
     {
       "binding": "NOAA_CACHE",
-      "id": "YOUR_KV_ID_HERE"
+      "id": "7307a003c658432e91c4a32bbb3d1cb7"
     }
   ],
   "observability": {
     "logs": {
       "enabled": true,
       "head_sampling_rate": 1.0
-    },
-    "traces": {
-      "enabled": true,
-      "head_sampling_rate": 1.0
     }
   },
   "vars": {
     "NOAA_API_BASE": "https://api.weather.gov",
-    "CACHE_DEFAULT_TTL": 300,
-    "CACHE_FORECAST_TTL": 900,
-    "CACHE_OBSERVATION_TTL": 120,
+    "CACHE_DEFAULT_TTL": "300",
+    "CACHE_FORECAST_TTL": "900",
+    "CACHE_OBSERVATION_TTL": "120",
     "APP_NAME": "Observatory2027",
     "APP_EMAIL": "contact@macachor.org",
     "ENVIRONMENT": "production"
-  },
-  "routes": [
-    {
-      "pattern": "space.macachor.org",
-      "custom_domain": true
-    }
-  ]
+  }
 }
-EOF
-
-# 4. Commit and push
-git add wrangler.jsonc
-git commit -m "Fix: Remove wildcard from custom domain route"
-git push origin main
