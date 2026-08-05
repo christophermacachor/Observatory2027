@@ -1,0 +1,45 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "observatory2027",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-04",
+  "compatibility_flags": ["nodejs_compat"],
+  
+  // Static assets
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  },
+  
+  // KV Namespace for caching NOAA responses
+  "kv_namespaces": [
+    {
+      "binding": "NOAA_CACHE",
+      "id": "YOUR_KV_ID_HERE",        // ← Create with: npx wrangler kv:namespace create "NOAA_CACHE"
+      "preview_id": "YOUR_PREVIEW_ID" // ← Optional: for wrangler dev
+    }
+  ],
+  
+  // Observability (Logs & Traces)
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1.0
+    },
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 1.0
+    }
+  },
+  
+  // Environment variables
+  "vars": {
+    "NOAA_API_BASE": "https://api.weather.gov",
+    "CACHE_DEFAULT_TTL": 300,
+    "CACHE_FORECAST_TTL": 900,
+    "CACHE_OBSERVATION_TTL": 120,
+    "APP_NAME": "Observatory2027",
+    "APP_EMAIL": "contact@macachor.org"
+  }
+}
