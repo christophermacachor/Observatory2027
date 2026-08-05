@@ -1,1 +1,15 @@
 
+node_modules
+src
+.wrangler
+.git
+.github
+*.jsonc
+*.toml
+package.json
+bun.lockb
+*.log
+README.md
+.gitignore
+.env.example
+obv.txt
