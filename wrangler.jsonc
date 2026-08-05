@@ -5,14 +5,12 @@
   "compatibility_date": "2026-08-04",
   "compatibility_flags": ["nodejs_compat"],
   
-  // Static assets - serve index.html from root
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application"
   },
   
-  // KV Namespace for caching NOAA responses
   "kv_namespaces": [
     {
       "binding": "NOAA_CACHE",
@@ -20,7 +18,6 @@
     }
   ],
   
-  // Observability (Logs & Traces)
   "observability": {
     "logs": {
       "enabled": true,
@@ -32,9 +29,23 @@
     }
   },
   
-  // Environment variables
   "vars": {
     "NOAA_API_BASE": "https://api.weather.gov",
+    "CACHE_DEFAULT_TTL": 300,
+    "CACHE_FORECAST_TTL": 900,
+    "CACHE_OBSERVATION_TTL": 120,
+    "APP_NAME": "Observatory2027",
+    "APP_EMAIL": "contact@macachor.org",
+    "ENVIRONMENT": "production"
+  },
+  
+  "routes": [
+    {
+      "pattern": "space.macachor.org/*",
+      "custom_domain": true
+    }
+  ]
+}    "NOAA_API_BASE": "https://api.weather.gov",
     "CACHE_DEFAULT_TTL": 300,
     "CACHE_FORECAST_TTL": 900,
     "CACHE_OBSERVATION_TTL": 120,
