@@ -1,0 +1,32 @@
+# Observatory2027 - NOAA Weather API with CORS Proxy
+
+A complete weather dashboard that proxies NOAA API requests through Cloudflare Workers, solving CORS issues while adding KV caching and full observability.
+
+## Features
+
+- 🌤️ **Real-time weather data** from NOAA API
+- ⚡ **KV caching** for fast responses (cache hit ~5ms vs 200-400ms)
+- 🛡️ **CORS proxy** handles all NOAA API requests
+- 📊 **Observability** with Workers Logs and Traces
+- 🎨 **Modern dark theme** responsive dashboard
+- 🔍 **Geocoding** support for city names
+- 📡 **Nearby stations** display
+
+## Quick Start
+
+```bash
+# 1. Clone/install
+git clone <your-repo>
+cd my-noaa-site
+
+# 2. Install dependencies
+npm install
+
+# 3. Create KV namespace
+npx wrangler kv:namespace create "NOAA_CACHE"
+
+# 4. Copy the KV ID to wrangler.jsonc
+# Edit wrangler.jsonc and replace "YOUR_KV_ID_HERE"
+
+# 5. Deploy
+npm run deploy
