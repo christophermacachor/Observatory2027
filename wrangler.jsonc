@@ -45,20 +45,4 @@
       "custom_domain": true
     }
   ]
-}    "NOAA_API_BASE": "https://api.weather.gov",
-    "CACHE_DEFAULT_TTL": 300,
-    "CACHE_FORECAST_TTL": 900,
-    "CACHE_OBSERVATION_TTL": 120,
-    "APP_NAME": "Observatory2027",
-    "APP_EMAIL": "contact@macachor.org",
-    "ENVIRONMENT": "production"
-  },
-  
-  // Routes (if you have custom domains)
-  "routes": [
-    {
-      "pattern": "space.macachor.org/*",
-      "custom_domain": true
-    }
-  ]
 }
