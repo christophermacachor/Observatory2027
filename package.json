@@ -1,10 +1,33 @@
 {
-  "name": "noaa-weather-site",
+  "name": "observatory2027",
+  "version": "1.0.0",
+  "description": "NOAA Weather API CORS Proxy with KV caching & static site",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "preview": "wrangler deploy --env preview",
+    "logs": "wrangler tail",
+    "kv:list": "wrangler kv:key list --binding=NOAA_CACHE",
+    "kv:clear": "wrangler kv:key list --binding=NOAA_CACHE | jq -r '.[].name' | xargs -I {} wrangler kv:key delete {} --binding=NOAA_CACHE",
+    "typecheck": "wrangler types",
+    "cf-typegen": "wrangler types"
   },
+  "keywords": [
+    "noaa",
+    "weather",
+    "cors-proxy",
+    "cloudflare-workers",
+    "kv-cache",
+    "observatory"
+  ],
+  "author": "macachorchris69",
+  "license": "MIT",
   "devDependencies": {
     "wrangler": "^4.34.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
