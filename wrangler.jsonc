@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "compatibility_date": "2026-08-04",
   "compatibility_flags": ["nodejs_compat"],
-  
+
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
@@ -13,54 +13,39 @@
       "node_modules/",
       ".git/",
       ".wrangler/",
+      "src/",
       "*.log",
       "*.toml",
       "*.jsonc",
-      "*.json",
-      "src/",
       "package.json",
       "bun.lockb",
       "README.md",
       ".gitignore",
       ".env.example"
-    ],
-    "include": [
-      "index.html"
     ]
   },
-  
+
   "kv_namespaces": [
     {
       "binding": "NOAA_CACHE",
-      "id": "YOUR_KV_ID_HERE"
+      "id": "7307a003c658432e91c4a32bbb3d1cb7"
     }
   ],
-  
+
   "observability": {
     "logs": {
       "enabled": true,
       "head_sampling_rate": 1.0
-    },
-    "traces": {
-      "enabled": true,
-      "head_sampling_rate": 1.0
     }
   },
-  
+
   "vars": {
     "NOAA_API_BASE": "https://api.weather.gov",
-    "CACHE_DEFAULT_TTL": 300,
-    "CACHE_FORECAST_TTL": 900,
-    "CACHE_OBSERVATION_TTL": 120,
+    "CACHE_DEFAULT_TTL": "300",
+    "CACHE_FORECAST_TTL": "900",
+    "CACHE_OBSERVATION_TTL": "120",
     "APP_NAME": "Observatory2027",
     "APP_EMAIL": "contact@macachor.org",
     "ENVIRONMENT": "production"
-  },
-  
-  "routes": [
-    {
-      "pattern": "space.macachor.org",
-      "custom_domain": true
-    }
-  ]
+  }
 }
