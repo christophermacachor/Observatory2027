@@ -8,21 +8,7 @@
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
-    "not_found_handling": "single-page-application",
-    "exclude": [
-      "node_modules/",
-      ".git/",
-      ".wrangler/",
-      "src/",
-      "*.log",
-      "*.toml",
-      "*.jsonc",
-      "package.json",
-      "bun.lockb",
-      "README.md",
-      ".gitignore",
-      ".env.example"
-    ]
+    "not_found_handling": "single-page-application"
   },
 
   "kv_namespaces": [
