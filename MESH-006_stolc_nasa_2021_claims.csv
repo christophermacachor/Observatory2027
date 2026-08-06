@@ -1,0 +1,7 @@
+mesh_id,claim_id,claim,evidence,validation_type,confidence
+MESH-006,SR-001,7.83 Hz is Earth's fundamental scalar identity frequency,SR fundamental measured at 7.83 Hz globally; amplitude in picoTesla range,DIRECT_MEASUREMENT,HIGH
+MESH-006,SR-002,Schumann harmonic series maps to primary EEG frequency bands,7.8Hz→relaxation; 14.3Hz→concentration; 20.8Hz→beta; 27.3Hz→high-beta; 33.8Hz→gamma threshold,CROSS_SUBSTRATE_MATCH,HIGH
+MESH-006,SR-003,Absence of resonant frequency = decoherence / stressor,NASA explicitly identifies absence of SR beyond LEO as physiological risk for long-duration missions,RISK_ASSESSMENT,HIGH
+MESH-006,SR-004,HRV correlates with scalar substrate power,"McCraty 2017: HRV correlates with SR power, solar wind speed, geomagnetic activity; Alabdulgader 2018: 5-week longitudinal HRV-SR correlation",BIOMARKER_STUDY,HIGH
+MESH-006,SR-005,Weak ELF fields modulate neural calcium binding,Bawin & Adey 1976: chick/cat cerebral tissue 45-Ca2+ release reduced by sinusoidal ELF fields at 1-75 Hz,MECHANISTIC_PATHWAY,MEDIUM
+MESH-006,SR-006,Cardiovascular events cluster at SR frequency perturbations,"Fdez-Arroyabe et al. 2020 (Granada, Spain): ECA shuffle-surrogate p=0.01 (1st SR) and p<0.01 (3rd SR)",EPIDEMIOLOGICAL,HIGH
