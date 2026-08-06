@@ -1,0 +1,6 @@
+mesh_id,order,value_hz,label,state,eeg_band,note
+MESH-006,0,7.83,SR1,relaxation,theta/alpha_boundary,fundamental
+MESH-006,2,14.3,SR2,concentration,alpha/beta,harmonic
+MESH-006,3,20.8,SR3,,beta,harmonic
+MESH-006,4,27.3,SR4,,high_beta,harmonic
+MESH-006,5,33.8,SR5,,gamma_threshold,harmonic
