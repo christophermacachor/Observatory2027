@@ -933,9 +933,26 @@ const WILD_EDGE_A = 1;
 const WILD_EDGE_B = Math.sqrt(150 + 30 * Math.sqrt(5)) / 10;
 const WILD_EDGE_C = (Math.sqrt(5) + 1) / 2;
 
-// ── API ENDPOINTS ──
-const NOAA_API = window.location.origin + '/api/noaa/all';
-const GATEWAY_URL = 'https://coherence-gateway.onrender.com';
+
+// ── API ENDPOINTS & FALLBACK CHAIN ──
+const ENDPOINTS = {
+  kp: ['https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json'],
+  dst: ['https://services.swpc.noaa.gov/products/kyoto-dst.json'],
+  mag: [
+    'https://services.swpc.noaa.gov/json/rtsw/rtsw_mag_1d.json',
+    'https://services.swpc.noaa.gov/json/rtsw/rtsw_mag_2h.json',
+    'https://services.swpc.noaa.gov/json/rtsw/rtsw_mag_5m.json'
+  ],
+  wind: [
+    'https://services.swpc.noaa.gov/json/rtsw/rtsw_wind_1d.json',
+    'https://services.swpc.noaa.gov/json/rtsw/rtsw_wind_2h.json',
+    'https://services.swpc.noaa.gov/json/rtsw/rtsw_wind_5m.json'
+  ],
+  magSummary: 'https://services.swpc.noaa.gov/products/summary/solar-wind-mag-field.json',
+  windSummary: 'https://services.swpc.noaa.gov/products/summary/solar-wind-speed.json'
+};
+const CACHE_KEY = 'msos_space_weather_v1';
+const STALE_THRESHOLD_MS = 30 * 60 * 1000;
 
 // ── QUATERNIONIC MATH ──────────────────────────────────────────────
 function qAdd(a, b) { return { w: a.w + b.w, x: a.x + b.x, y: a.y + b.y, z: a.z + b.z }; }
