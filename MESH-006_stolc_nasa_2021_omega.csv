@@ -1,0 +1,4 @@
+mesh_id,omega_state,condition,physiological_signature
+MESH-006,unison,SR present (Earth surface / LEO),"HRV elevation, parasympathetic tone, EEG band alignment, melatonin stability"
+MESH-006,null,SR absent (beyond LEO / inside BMSR),"Potential stressor, autonomic drift, circadian disruption, cardiovascular clustering"
+MESH-006,harmony,SR harmonic series (14.3-33.8 Hz),Cross-band interaction permitted via integer/golden ratio coupling
