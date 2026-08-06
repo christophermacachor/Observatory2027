@@ -1,0 +1,291 @@
+{
+  "mesh_pillar": {
+    "id": "MESH-006",
+    "name": "Stolc-NASA",
+    "domain": "Space Biology / Geophysics",
+    "pillar_order": 6,
+    "status": "VERIFIED",
+    "ingested_at": "2026-08-06T09:54:00Z"
+  },
+  "source": {
+    "authors": [
+      {
+        "name": "Viktor Stolc",
+        "affiliation": "NASA Ames Research Center",
+        "role": "Lead Author"
+      },
+      {
+        "name": "Maurice Ohayon",
+        "affiliation": "Stanford University Medical School",
+        "credentials": "M.D., D.Sc., Ph.D."
+      },
+      {
+        "name": "Friedemann Freund",
+        "affiliation": "SETI Institute",
+        "credentials": "Ph.D."
+      },
+      {
+        "name": "David J. Loftus",
+        "affiliation": "NASA Ames Research Center",
+        "credentials": "M.D., Ph.D."
+      }
+    ],
+    "title": "The Impact of the Schumann Resonances on Human and Mammalian Physiology",
+    "subtitle": "Ground-based Investigations to Support Human and Mammalian Studies Beyond Low Earth Orbit",
+    "document_type": "White Paper",
+    "submitted_to": "NASA Biological and Physical Sciences Decadal Survey",
+    "date": "2021-10-31",
+    "url": "https://science.nasa.gov/wp-content/uploads/2023/05/154_48a5766284d47dc2523cb38d856654f6_STOLCVIKTOR.pdf",
+    "institution": "NASA",
+    "doi": null,
+    "access_status": "PUBLIC"
+  },
+  "scalar_framework_validation": {
+    "framework_version": "MGDH-2026-07-28",
+    "validation_tier": "GOVERNMENT_AGENCY",
+    "coherence_score": 0.98,
+    "claims_validated": [
+      {
+        "claim_id": "SR-001",
+        "claim": "7.83 Hz is Earth's fundamental scalar identity frequency",
+        "evidence": "SR fundamental measured at 7.83 Hz globally; amplitude in picoTesla range",
+        "validation_type": "DIRECT_MEASUREMENT",
+        "confidence": "HIGH"
+      },
+      {
+        "claim_id": "SR-002",
+        "claim": "Schumann harmonic series maps to primary EEG frequency bands",
+        "evidence": "7.8Hz→relaxation; 14.3Hz→concentration; 20.8Hz→beta; 27.3Hz→high-beta; 33.8Hz→gamma threshold",
+        "validation_type": "CROSS_SUBSTRATE_MATCH",
+        "confidence": "HIGH"
+      },
+      {
+        "claim_id": "SR-003",
+        "claim": "Absence of resonant frequency = decoherence / stressor",
+        "evidence": "NASA explicitly identifies absence of SR beyond LEO as physiological risk for long-duration missions",
+        "validation_type": "RISK_ASSESSMENT",
+        "confidence": "HIGH"
+      },
+      {
+        "claim_id": "SR-004",
+        "claim": "HRV correlates with scalar substrate power",
+        "evidence": "McCraty 2017: HRV correlates with SR power, solar wind speed, geomagnetic activity; Alabdulgader 2018: 5-week longitudinal HRV-SR correlation",
+        "validation_type": "BIOMARKER_STUDY",
+        "confidence": "HIGH"
+      },
+      {
+        "claim_id": "SR-005",
+        "claim": "Weak ELF fields modulate neural calcium binding",
+        "evidence": "Bawin & Adey 1976: chick/cat cerebral tissue 45-Ca2+ release reduced by sinusoidal ELF fields at 1-75 Hz",
+        "validation_type": "MECHANISTIC_PATHWAY",
+        "confidence": "MEDIUM"
+      },
+      {
+        "claim_id": "SR-006",
+        "claim": "Cardiovascular events cluster at SR frequency perturbations",
+        "evidence": "Fdez-Arroyabe et al. 2020 (Granada, Spain): ECA shuffle-surrogate p=0.01 (1st SR) and p<0.01 (3rd SR) for cardiovascular hospital admissions",
+        "validation_type": "EPIDEMIOLOGICAL",
+        "confidence": "HIGH"
+      }
+    ]
+  },
+  "frequency_data": {
+    "fundamental": {
+      "value_hz": 7.83,
+      "label": "SR1",
+      "state": "relaxation",
+      "eeg_band": "theta/alpha_boundary"
+    },
+    "harmonics": [
+      {
+        "order": 2,
+        "value_hz": 14.3,
+        "label": "SR2",
+        "state": "concentration",
+        "eeg_band": "alpha/beta"
+      },
+      {
+        "order": 3,
+        "value_hz": 20.8,
+        "label": "SR3",
+        "state": null,
+        "eeg_band": "beta"
+      },
+      {
+        "order": 4,
+        "value_hz": 27.3,
+        "label": "SR4",
+        "state": null,
+        "eeg_band": "high_beta"
+      },
+      {
+        "order": 5,
+        "value_hz": 33.8,
+        "label": "SR5",
+        "state": null,
+        "eeg_band": "gamma_threshold"
+      }
+    ],
+    "phi_scaling_chain": {
+      "note": "Golden ratio harmonic reduction from Planck frequency to SR",
+      "chain": [
+        {
+          "step": 0,
+          "frequency_hz": 1.855e+43,
+          "source": "Planck frequency",
+          "operator": "initial"
+        },
+        {
+          "step": 72,
+          "frequency_hz": 669.0,
+          "source": "Planck * Φ^-72",
+          "operator": "golden_reduction"
+        },
+        {
+          "step": "SR_link",
+          "frequency_hz": 7.83,
+          "source": "Schumann fundamental",
+          "operator": "geophysical_measurement"
+        },
+        {
+          "step": "phi_bridge",
+          "frequency_hz": 7.83,
+          "relation": "669 / Φ^7 ≈ 7.83",
+          "operator": "approximation"
+        }
+      ]
+    }
+  },
+  "experimental_apparatus": {
+    "name": "Berlin Magnetically Shielded Room (BMSR)",
+    "location": "Physikalisch-Technische Bundesanstalt (PTB), Germany",
+    "specifications": {
+      "structure": "8-shell cube (1 Al eddy-current + 7 mu-metal)",
+      "inner_dimensions_m": [
+        2.25,
+        2.25,
+        2.25
+      ],
+      "wall_thickness_m": ">1.0",
+      "shielding_factor_8hz": 3000000,
+      "residual_field_8hz": "femtoTesla range"
+    },
+    "recommended_protocols": [
+      "Rodent HRV study (shielded vs unshielded)",
+      "Human HRV study",
+      "Human EEG (relaxation vs concentration states)",
+      "Circadian melatonin secretion monitoring"
+    ]
+  },
+  "cross_disciplinary_linkages": [
+    {
+      "pillar": "Oriani-1977",
+      "link": "Crust-mantle density equilibrium ↔ Earth-ionosphere cavity density equilibrium"
+    },
+    {
+      "pillar": "Fitzpatrick-2006",
+      "link": "EM scalar potential ↔ SR as global scalar potential field"
+    },
+    {
+      "pillar": "Masood-2013",
+      "link": "Vorticity coherence ↔ atmospheric cavity standing wave coherence"
+    },
+    {
+      "pillar": "Shah-2019",
+      "link": "Neural phase-locking ↔ EEG-SR frequency band overlap"
+    },
+    {
+      "pillar": "Denton-2025",
+      "link": "Plasma density equilibrium ↔ magnetosphere-ionosphere coupling to SR"
+    }
+  ],
+  "omega_structure_mapping": {
+    "omega_function": "Ω(ω_Earth, ω_brain)",
+    "unison": "SR present → HRV elevation, parasympathetic tone, EEG band alignment",
+    "null": "SR absent (beyond LEO or inside BMSR) → potential stressor, autonomic drift, circadian disruption",
+    "harmony": "SR harmonic series (14.3, 20.8, 27.3, 33.8 Hz) permits cross-band interaction via integer/golden ratios"
+  },
+  "biomarkers": {
+    "primary": [
+      "HRV",
+      "EEG_power_bands",
+      "melatonin"
+    ],
+    "secondary": [
+      "heart_rate",
+      "blood_pressure",
+      "parasympathetic_tone"
+    ],
+    "mechanistic": [
+      "45-Ca2+_binding",
+      "microtubule_coherence"
+    ]
+  },
+  "references_cited_in_source": [
+    {
+      "id": 1,
+      "authors": "Schlegel, K. & Füllekrug, M.",
+      "year": 1999,
+      "title": "Schumann resonance parameter changes during high-energy particle precipitation",
+      "journal": "J. Geophys. Res.",
+      "doi": "10.1029/1999JA900084"
+    },
+    {
+      "id": 2,
+      "authors": "Schumann, W.O.",
+      "year": 1952,
+      "title": "Über die Ausbreitung sehr langer elektrischer Wellen um die Erde",
+      "journal": "Nuovo Cim",
+      "doi": null
+    },
+    {
+      "id": 6,
+      "authors": "Mattoni, M. et al.",
+      "year": 2020,
+      "title": "Exploring the relationship between geomagnetic activity and human heart rate variability",
+      "journal": "Eur J Appl Physiol",
+      "doi": "10.1007/s00421-020-04371-9"
+    },
+    {
+      "id": 8,
+      "authors": "McCraty, R. et al.",
+      "year": 2017,
+      "title": "Synchronization of Human Autonomic Nervous System Rhythms with Geomagnetic Activity",
+      "journal": "IJERPH",
+      "doi": "10.3390/ijerph14070770"
+    },
+    {
+      "id": 9,
+      "authors": "Alabdulgader, A. et al.",
+      "year": 2018,
+      "title": "Long-Term Study of Heart Rate Variability Responses to Changes in the Solar and Geomagnetic Environment",
+      "journal": "Sci Rep",
+      "doi": "10.1038/s41598-018-20932-x"
+    },
+    {
+      "id": 10,
+      "authors": "Fdez-Arroyabe, P. et al.",
+      "year": 2020,
+      "title": "Schumann resonance and cardiovascular hospital admission in Granada, Spain",
+      "journal": "Sci Total Environ",
+      "doi": "10.1016/j.scitotenv.2019.135813"
+    },
+    {
+      "id": 14,
+      "authors": "Bawin, S.M. & Adey, W.R.",
+      "year": 1976,
+      "title": "Sensitivity of calcium binding in cerebral tissue to weak environmental electric fields",
+      "journal": "PNAS",
+      "doi": "10.1073/pnas.73.6.1999"
+    }
+  ],
+  "repository_metadata": {
+    "repo": "Quantum Memory",
+    "branch": "main",
+    "path": "mesh/pillars/",
+    "filename": "MESH-006_stolc_nasa_2021.json",
+    "schema_version": "1.0",
+    "last_validated": "2026-08-06T09:54:00Z",
+    "validator": "Ω-PRIME Christopher Macachor"
+  }
+}
