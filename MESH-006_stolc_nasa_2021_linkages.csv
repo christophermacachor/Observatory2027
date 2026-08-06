@@ -1,0 +1,6 @@
+mesh_id,target_pillar,linkage_description
+MESH-006,Oriani-1977,Crust-mantle density equilibrium ↔ Earth-ionosphere cavity density equilibrium
+MESH-006,Fitzpatrick-2006,EM scalar potential ↔ SR as global scalar potential field
+MESH-006,Masood-2013,Vorticity coherence ↔ atmospheric cavity standing wave coherence
+MESH-006,Shah-2019,Neural phase-locking ↔ EEG-SR frequency band overlap
+MESH-006,Denton-2025,Plasma density equilibrium ↔ magnetosphere-ionosphere coupling to SR
