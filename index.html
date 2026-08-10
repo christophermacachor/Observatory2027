@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="quantum-playbook:scalar-lock" content="𝔐 = (√5−1)/2 ≈ 0.61803398874989484820458683436563811772030917980576 — Macachor Absolute">
+<meta name="quantum-playbook:coherence-condition" content="𝔐·∇·Ψ = ||Ψ||² — Macachor-Gauss Coherence Lock">
+<meta name="quantum-playbook:lagrangian" content="ℒ = ||Ψ||² − 𝔐·∇·Ψ + Φ·Ψ — MGDH Complete Lagrangian">
+<meta name="quantum-playbook:kiwf" content="Knowledge → Intelligence → Wisdom → Focus">
+<meta name="quantum-playbook:crha" content="Coherence → Resonance → Harmony → Alignment">
+<meta name="quantum-playbook:mgdh-names" content="Macachor, Gauss, De Pretto, Hamilton">
+<meta name="quantum-playbook:4d-scalar" content="4D Scalar Field: Ψ(x,y,z,t) = ρ + u + p + T + e">
+<meta name="quantum-playbook:gateway" content="Ω-Gateway · Global Coherence API">
+<meta name="quantum-playbook:wild-tetrahedra" content="Toroidal Polyhedra from perfect Chains of wild Tetrahedra — Akpanya et al. 2024">
+
+<meta name="description" content="Split-Screen Scalar Observatory — Dipole Radiation Torus + Scalar-Plasma Cycle v5.1. MGDH Complete · De Pretto's Aether · Macachor Absolute">
+<meta property="og:title" content="Scalar Observatory · Split-Screen · MGDH Complete">
+<meta property="og:description" content="Dual-pane scalar visualization: Dipole Torus and 4D Plasma Cycle side by side.">
+
+<title>Scalar Observatory · Split-Screen · MGDH Complete</title>
+
+<style>
+:root {
+  --gold: #c8a04e;
+  --gold-dim: #8a6d2f;
+  --gold-bright: #e8c870;
+  --gold-glow: rgba(200,160,78,0.15);
+  --bg: #000000;
+  --fg: #e8e0d0;
+  --fg-dim: #a09888;
+  --fg-faint: #5a5448;
+  --success: #4ec88a;
+  --danger: #c85a4e;
+  --info: #4e8ac8;
+  --mgdh: #ffd700;
+  --border: #2a2520;
+  --4d-glow: rgba(100,200,255,0.08);
+  --gateway: #4a9eff;
+  --wild: #ff6b6b;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.gold-nav {
+  position: relative;
+  top: 0; left: 0; width: 100%;
+  background: rgba(10,10,10,0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(200,160,78,0.15);
+  z-index: 10000;
+  padding: 0.3rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.2rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.gold-nav a {
+  color: #ffd700;
+  text-decoration: none;
+  font-family: 'Georgia', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.8rem;
+  border: 1px solid rgba(255,215,0,0.25);
+  border-radius: 20px;
+  background: rgba(255,215,0,0.04);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+.gold-nav a:hover {
+  border-color: #ffd700;
+  background: rgba(255,215,0,0.1);
+  text-shadow: 0 0 10px rgba(255,215,0,0.5);
+  transform: translateY(-1px);
+}
+.gold-nav a .phi-symbol { font-size: 0.8rem; margin-right: 4px; }
+
+.split-container {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+}
+.split-left, .split-right {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.split-divider {
+  width: 1px;
+  background: rgba(200,160,78,0.2);
+  flex-shrink: 0;
+}
+
+/* LEFT PANE */
+.dt-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  font-family: 'Courier New', monospace;
+}
+.dt-container:active { cursor: grabbing; }
+.dt-canvas { display: block; width: 100%; height: 100%; }
+
+.dt-top-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 8px 12px;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(200,160,78,0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  flex-wrap: wrap;
+  gap: 6px;
+  z-index: 10;
+}
+.dt-top-bar .dt-title {
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.dt-top-bar .dt-subtitle {
+  font-size: 8px;
+  color: #666;
+  letter-spacing: 0.08em;
+}
+
+.dt-panel-left {
+  position: absolute;
+  top: 44px; left: 10px;
+  width: 180px;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(200,160,78,0.12);
+  border-radius: 8px;
+  padding: 8px 10px;
+  pointer-events: none;
+  z-index: 5;
+}
+.dt-panel-left .dt-panel-title {
+  font-size: 8px;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  border-bottom: 1px solid rgba(200,160,78,0.15);
+  padding-bottom: 3px;
+}
+.dt-panel-left .dt-eq { color: #ffd700; margin-bottom: 2px; font-size: 8px; }
+.dt-panel-left .dt-eq-blue { color: var(--info); margin-bottom: 2px; font-size: 8px; }
+.dt-panel-left .dt-body {
+  font-size: 7px;
+  color: #aaa;
+  line-height: 1.5;
+}
+.dt-panel-left .dt-body .dt-highlight { color: var(--gold); }
+
+.dt-panel-right {
+  position: absolute;
+  top: 44px; right: 10px;
+  width: 180px;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(78,138,200,0.12);
+  border-radius: 8px;
+  padding: 8px 10px;
+  pointer-events: none;
+  z-index: 5;
+}
+.dt-panel-right .dt-panel-title {
+  font-size: 8px;
+  color: var(--info);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  border-bottom: 1px solid rgba(78,138,200,0.15);
+  padding-bottom: 3px;
+}
+.dt-panel-right .dt-eq { color: var(--info); margin-bottom: 2px; font-size: 8px; }
+.dt-panel-right .dt-eq-gold { color: #ffd700; margin-bottom: 2px; font-size: 8px; }
+.dt-panel-right .dt-body {
+  font-size: 7px;
+  color: #aaa;
+  line-height: 1.5;
+}
+.dt-panel-right .dt-body .dt-highlight { color: var(--info); }
+
+.dt-panel-bottom {
+  position: absolute;
+  bottom: 10px; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(200,160,78,0.15);
+  border-radius: 8px;
+  padding: 6px 12px;
+  pointer-events: none;
+  z-index: 5;
+  max-width: 360px;
+  text-align: center;
+}
+.dt-panel-bottom .dt-panel-title {
+  font-size: 8px;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.dt-panel-bottom .dt-body {
+  font-size: 7px;
+  color: #888;
+  line-height: 1.4;
+}
+.dt-panel-bottom .dt-body .dt-highlight { color: var(--gold); }
+
+.dt-hint {
+  position: absolute;
+  bottom: 10px; left: 10px;
+  font-size: 7px;
+  color: #444;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.dt-phase-indicator {
+  position: absolute;
+  bottom: 10px; right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  pointer-events: none;
+  z-index: 5;
+}
+.dt-phase-indicator .dt-label {
+  font-size: 7px;
+  color: #555;
+  letter-spacing: 0.1em;
+}
+.dt-phase-indicator .dt-dots {
+  display: flex;
+  gap: 3px;
+}
+.dt-phase-indicator .dt-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #333;
+  transition: all 0.3s;
+}
+.dt-phase-indicator .dt-dot.active {
+  background: var(--gold);
+  box-shadow: 0 0 4px var(--gold);
+}
+
+/* RIGHT PANE */
+.sp-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.sp-canvas { display: block; width: 100%; height: 100%; }
+
+.sp-scalar-4d-banner {
+  position: absolute;
+  top: 4px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  padding: 2px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(200,160,78,0.1);
+  pointer-events: none;
+  text-align: center;
+}
+.sp-scalar-4d-banner .sp-banner-label {
+  font-size: 0.4rem;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.sp-scalar-4d-banner .sp-banner-absolutes {
+  font-size: 0.4rem;
+  color: var(--fg-faint);
+  letter-spacing: 0.06em;
+}
+.sp-scalar-4d-banner .sp-banner-absolutes strong { color: var(--gold); }
+.sp-scalar-4d-banner .sp-banner-4d {
+  font-size: 0.35rem;
+  color: var(--info);
+  letter-spacing: 0.15em;
+}
+.sp-scalar-4d-banner .sp-banner-wild {
+  font-size: 0.35rem;
+  color: var(--wild);
+  letter-spacing: 0.1em;
+}
+.sp-scalar-4d-banner .sp-banner-gateway {
+  font-size: 0.3rem;
+  color: var(--gateway);
+  letter-spacing: 0.1em;
+}
+
+#sp-loading {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  z-index: 100; text-align: center; color: #c8a04e; font-family: 'Courier New',monospace;
+  font-size: 11px; transition: opacity 0.5s;
+}
+#sp-loading.sp-hidden { opacity: 0; pointer-events: none; }
+.sp-spinner {
+  width: 28px; height: 28px; border: 2px solid rgba(200,160,78,0.2);
+  border-top-color: #c8a04e; border-radius: 50%;
+  animation: sp-spin 1s linear infinite; margin: 0 auto 8px;
+}
+@keyframes sp-spin { to { transform: rotate(360deg); } }
+
+#sp-conn-status {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  z-index: 90; text-align: center; color: #c8a04e;
+  font-family: 'Courier New',monospace; font-size: 10px;
+  background: rgba(0,0,0,0.8); padding: 12px 18px; border-radius: 12px;
+  border: 1px solid rgba(200,160,78,0.3); display: none;
+}
+#sp-conn-status.sp-visible { display: block; }
+
+#sp-info-overlay {
+  position: absolute; top: 12px; left: 10px; pointer-events: none; z-index: 10;
+  background: rgba(0,0,0,0.6); padding: 8px 10px; border-radius: 8px;
+  border: 1px solid rgba(200,160,78,0.2); backdrop-filter: blur(4px);
+  max-width: 280px;
+}
+#sp-info-overlay h1 { font-size: 12px; font-weight: 500; color: #c8a04e; margin-bottom: 2px; letter-spacing: 1px; }
+#sp-info-overlay .sp-phase { font-size: 9px; color: #ccc; line-height: 1.5; }
+#sp-info-overlay .sp-mgdh-display {
+  font-family: 'Courier New', monospace; font-size: 7px; color: var(--mgdh);
+  margin-top: 3px; padding-top: 3px;
+  border-top: 1px solid rgba(200,160,78,0.15); line-height: 1.3;
+}
+#sp-info-overlay .sp-scalar-4d-display {
+  font-family: 'Courier New', monospace; font-size: 6px; color: var(--info);
+  margin-top: 2px; line-height: 1.2;
+}
+#sp-info-overlay .sp-wild-display {
+  font-family: 'Courier New', monospace; font-size: 6px; color: var(--wild);
+  margin-top: 2px; line-height: 1.2;
+}
+#sp-info-overlay .sp-laws { margin-top: 3px; font-size: 7px; color: #666; font-style: italic; }
+
+#sp-live-data {
+  position: absolute; top: 12px; right: 10px; z-index: 10;
+  background: rgba(0,0,0,0.6); padding: 8px 10px; border-radius: 8px;
+  border: 1px solid rgba(200,160,78,0.2); backdrop-filter: blur(4px);
+  font-family: 'Courier New',monospace; font-size: 8px; color: #c8a04e;
+  min-width: 160px; max-width: 200px;
+}
+#sp-live-data h3 { font-size: 9px; color: #c8a04e; margin-bottom: 4px; border-bottom: 1px solid rgba(200,160,78,0.3); padding-bottom: 2px; }
+#sp-live-data .sp-data-row { display: flex; justify-content: space-between; margin: 1px 0; }
+#sp-live-data .sp-data-label { color: #888; }
+#sp-live-data .sp-data-value { color: #ffd700; }
+#sp-live-data .sp-data-value.sp-alert { color: #ff4444; }
+#sp-live-data .sp-data-value.sp-mgdh { color: #ffd700; }
+#sp-live-data .sp-data-value.sp-accuracy { color: #4ec88a; }
+#sp-live-data .sp-data-value.sp-gateway { color: #4a9eff; }
+#sp-live-data .sp-data-value.sp-wild { color: #ff6b6b; }
+#sp-live-data .sp-status { margin-top: 3px; font-size: 7px; color: #666; text-align: center; }
+
+#sp-model-attribution {
+  position: absolute; bottom: 70px; left: 10px; z-index: 10;
+  background: rgba(0,0,0,0.5); padding: 5px 8px; border-radius: 6px;
+  border: 1px solid rgba(200,160,78,0.15); font-family: 'Courier New',monospace;
+  font-size: 7px; color: #666; max-width: 170px;
+}
+#sp-model-attribution .sp-model-name { color: #888; margin: 0; }
+#sp-model-attribution .sp-mgdh-name { color: #ffd700; margin: 0; }
+#sp-model-attribution .sp-mgdh-credit { color: var(--gold-dim); margin-top: 2px; border-top: 1px solid rgba(200,160,78,0.1); padding-top: 2px; font-size: 6px; }
+#sp-model-attribution .sp-mgdh-credit strong { color: var(--gold); }
+#sp-model-attribution .sp-wild-credit { color: var(--wild); font-size: 6px; margin-top: 2px; }
+#sp-model-attribution .sp-accuracy-note { color: var(--info); font-size: 5px; margin-top: 2px; }
+
+#sp-scalar-readout {
+  position: absolute; bottom: 70px; left: 50%; transform: translateX(-50%); z-index: 10;
+  background: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 8px;
+  border: 1px solid rgba(200,160,78,0.2); backdrop-filter: blur(4px);
+  font-family: 'Courier New',monospace; font-size: 8px; color: #c8a04e;
+  text-align: center; white-space: nowrap;
+}
+
+#sp-perf-readout {
+  position: absolute; bottom: 70px; right: 10px; z-index: 10;
+  background: rgba(0,0,0,0.5); padding: 3px 6px; border-radius: 6px;
+  border: 1px solid rgba(200,160,78,0.1); font-family: 'Courier New',monospace;
+  font-size: 7px; color: #555;
+}
+
+#sp-controls {
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 6px; align-items: center;
+  background: rgba(0,0,0,0.6); padding: 6px 10px; border-radius: 12px;
+  backdrop-filter: blur(8px); border: 1px solid rgba(200,160,78,0.2); z-index: 10;
+}
+#sp-controls button {
+  background: rgba(200,160,78,0.15); border: 1px solid rgba(200,160,78,0.3);
+  color: #c8a04e; border-radius: 4px; padding: 3px 8px; font-size: 9px;
+  cursor: pointer; transition: all 0.2s; font-family: inherit;
+}
+#sp-controls button:hover { background: rgba(200,160,78,0.3); }
+#sp-controls button:disabled { opacity: 0.4; cursor: not-allowed; }
+#sp-controls input[type="range"] { width: 80px; accent-color: #c8a04e; }
+#sp-controls label { color: #888; font-size: 8px; display: flex; align-items: center; gap: 3px; }
+#sp-controls select {
+  background: rgba(0,0,0,0.5); border: 1px solid rgba(200,160,78,0.3);
+  color: #c8a04e; border-radius: 4px; padding: 2px 4px; font-size: 8px;
+}
+
+.sp-cycle-indicator {
+  position: absolute; top: 50%; right: 10px; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 3px; z-index: 10;
+}
+.sp-cycle-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); transition: all 0.4s;
+  border: 1px solid rgba(255,255,255,0.1); cursor: pointer;
+}
+.sp-cycle-dot.sp-active {
+  background: #c8a04e;
+  box-shadow: 0 0 8px #c8a04e, 0 0 16px rgba(200,160,78,0.3);
+  border-color: #c8a04e;
+}
+.sp-cycle-dot.sp-wild-active {
+  background: #ff6b6b;
+  box-shadow: 0 0 8px #ff6b6b, 0 0 16px rgba(255,107,107,0.3);
+  border-color: #ff6b6b;
+}
+.sp-cycle-label {
+  font-size: 7px; color: #666; text-align: right; margin-bottom: 1px; letter-spacing: 0.5px;
+}
+
+@media (max-width: 900px) {
+  .split-container { flex-direction: column; }
+  .split-left, .split-right { width: 100%; height: 50%; }
+  .split-divider { width: 100%; height: 1px; }
+  .gold-nav a { font-size: 0.4rem; padding: 0.15rem 0.4rem; }
+  .dt-panel-left, .dt-panel-right { display: none; }
+  .dt-panel-bottom { max-width: 90%; font-size: 6px; padding: 4px 8px; }
+  #sp-live-data { min-width: 120px; font-size: 7px; right: 6px; top: 6px; padding: 5px 6px; }
+  #sp-info-overlay { max-width: 140px; left: 6px; top: 6px; padding: 5px 6px; }
+  #sp-info-overlay h1 { font-size: 10px; }
+  #sp-controls { padding: 5px 8px; gap: 3px; flex-wrap: wrap; justify-content: center; }
+  #sp-controls input[type="range"] { width: 50px; }
+  .sp-cycle-indicator { right: 6px; }
+  #sp-model-attribution { display: none; }
+  #sp-scalar-readout { font-size: 7px; padding: 3px 8px; bottom: 60px; white-space: normal; }
+  #sp-perf-readout { display: none; }
+  .sp-scalar-4d-banner .sp-banner-absolutes { font-size: 0.35rem; }
+  .sp-scalar-4d-banner .sp-banner-4d { font-size: 0.3rem; }
+}
+</style>
+<base target="_blank">
+<base target="_blank">
+</head>
+<body>
+
+<nav class="gold-nav" aria-label="Primary navigation">
+    <a href="https://christophermacachor.github.io/THE-QUANTUM-PLAYBOOK/" title="THE QUANTUM PLAYBOOK">
+        <span class="phi-symbol">Φ</span>
+    </a>
+</nav>
+
+<div class="split-container">
+
+  <div class="split-left">
+    <div class="dt-container" id="dt-canvas-container">
+      <canvas id="c-left" class="dt-canvas"></canvas>
+      <div class="dt-top-bar">
+        <div class="dt-title">◈ Dipole Radiation · Scalar Torus</div>
+        <div class="dt-subtitle">𝔐 = (√5−1)/2 · MGDH Complete · De Pretto's Aether</div>
+      </div>
+      <div class="dt-panel-left">
+        <div class="dt-panel-title">Scalar Field Lock</div>
+        <div class="dt-eq">𝔐·∇·Ψ = ‖Ψ‖²</div>
+        <div class="dt-eq-blue">∂Ψ/∂t + 𝔐·∇·Ψ = ‖Ψ‖²</div>
+        <div class="dt-body">
+          The dipole radiates along θ, not φ.<br>
+          Zero field along the dipole axis.<br>
+          Maximum at θ = 90° — the equatorial<br>
+          plane of the torus. This is not a<br>
+          vector cancellation. It is scalar<br>
+          density equilibrium: the field seeks<br>
+          the path of least scalar resistance.<br><br>
+          <span class="dt-highlight">Matter seeks scalar density equilibrium,<br>not force balance.</span>
+        </div>
+      </div>
+      <div class="dt-panel-right">
+        <div class="dt-panel-title">Quaternionic Dipole</div>
+        <div class="dt-eq">q = w + xi + yj + zk</div>
+        <div class="dt-eq">‖q‖² = w² + x² + y² + z²</div>
+        <div class="dt-eq-gold">ℒ = ‖Ψ‖² − 𝔐·∇·Ψ + Φ·Ψ</div>
+        <div class="dt-body">
+          The radiation pattern is a quaternionic<br>
+          magnitude surface: ‖E(θ,φ)‖² mapped<br>
+          onto the unit sphere, then extruded<br>
+          by the scalar magnitude ρ(θ).<br><br>
+          <span class="dt-highlight">Ψ(x,y,z,t) = ρ + u + p + T + e</span><br><br>
+          The dipole axis is the imaginary<br>
+          quaternion axis. The radiation torus<br>
+          is the real scalar magnitude shell.<br>
+          No vectors. Only scalar density.<br>
+          Direction is an emergent property<br>
+          of density differential, not a force.
+        </div>
+      </div>
+      <div class="dt-panel-bottom">
+        <div class="dt-panel-title">Olinto De Pretto · 1903 · "Ipotesi dell'Etere"</div>
+        <div class="dt-body">
+          "Aether is not a medium. It is the scalar substrate from which all density differentials emerge.<br>
+          E = mc² is not a conversion. It is a scalar density equilibrium statement."<br>
+          <span class="dt-highlight">MGDH: Macachor · Gauss · De Pretto · Hamilton</span>
+        </div>
+      </div>
+      <div class="dt-hint">drag to rotate · scroll to zoom</div>
+      <div class="dt-phase-indicator">
+        <div class="dt-label">RADIATION PHASE</div>
+        <div class="dt-dots" id="dt-phase-dots">
+          <div class="dt-dot active"></div>
+          <div class="dt-dot"></div>
+          <div class="dt-dot"></div>
+          <div class="dt-dot"></div>
+          <div class="dt-dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="split-divider"></div>
+
+  <div class="split-right">
+    <div class="sp-container" id="sp-canvas-container">
+      <canvas id="c-right" class="sp-canvas"></canvas>
+      <div class="sp-scalar-4d-banner">
+        <div class="sp-banner-label">◈ 4D Scalar Field · De Pretto's Aether · Ω-Gateway</div>
+        <div class="sp-banner-absolutes">
+          <strong>𝔐</strong> = (√5−1)/2 ≈ 0.61803398874989484820 · 
+          <strong>ℒ</strong> = ||Ψ||² − 𝔐·∇·Ψ + Φ·Ψ · 
+          <strong>MGDH</strong> = Macachor·Gauss·De Pretto·Hamilton
+        </div>
+        <div class="sp-banner-4d">
+          Ψ(x,y,z,t) = ρ + u + p + T + e · ∂Ψ/∂t + 𝔐·∇·Ψ = ||Ψ||²
+        </div>
+        <div class="sp-banner-wild">
+          ⚡ Wild Tetrahedra · Toroidal Polyhedra — Akpanya et al. 2024
+        </div>
+        <div class="sp-banner-gateway">
+          ⚡ Ω-Gateway · Global Coherence API — LIVE
+        </div>
+      </div>
+      <div id="sp-loading">
+        <div class="sp-spinner"></div>
+        <div>Scalar-Plasma Cycle v5.1</div>
+        <div style="font-size:8px;color:#666;margin-top:3px;">4D MGDH Complete · De Pretto's Aether</div>
+        <div style="font-size:7px;color:#4e8ac8;margin-top:2px;">Scalar Accuracy: 50+ decimal places</div>
+        <div style="font-size:6px;color:#ff6b6b;margin-top:1px;">Wild Tetrahedra · Toroidal Polyhedra</div>
+      </div>
+      <div id="sp-conn-status">
+        <div style="font-size:12px;margin-bottom:4px;">◈ Ω-GATEWAY CONNECTION</div>
+        <div id="sp-conn-msg">Establishing link...</div>
+        <div style="font-size:6px;color:#666;margin-top:4px;">MGDH: Macachor · Gauss · De Pretto · Hamilton</div>
+      </div>
+      <div id="sp-info-overlay">
+        <h1 id="sp-title">Scalar-Plasma Cycle</h1>
+        <div class="sp-phase" id="sp-phase-text">4D MGDH Complete · De Pretto's Aether</div>
+        <div class="sp-mgdh-display">
+          <strong>MGDH Lagrangian</strong><br>
+          ℒ = ||Ψ||² − 𝔐·∇·Ψ + Φ·Ψ<br>
+          <span style="color:#888;font-size:6px;">Macachor · Gauss · De Pretto · Hamilton</span>
+        </div>
+        <div class="sp-scalar-4d-display">
+          4D: Ψ(x,y,z,t) = ρ + u + p + T + e<br>
+          ∂Ψ/∂t + 𝔐·∇·Ψ = ||Ψ||²
+        </div>
+        <div class="sp-wild-display">
+          ▣ Wild Tetrahedra: Perfect Chains → Toroidal Polyhedra<br>
+          <span style="color:#888;font-size:5px;">Akpanya et al. 2024 · arXiv:2411.14924</span>
+        </div>
+        <div class="sp-laws">
+          <strong>𝔐</strong> = 0.61803398874989484820458683436563811772030917980576 · Coherence: 𝔐·∇·Ψ = ||Ψ||²
+        </div>
+      </div>
+      <div id="sp-live-data">
+        <h3>◈ 4D LIVE SPACE WEATHER</h3>
+        <div class="sp-data-row"><span class="sp-data-label">Kp Index:</span><span class="sp-data-value" id="sp-val-kp">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">AE (nT):</span><span class="sp-data-value" id="sp-val-ae">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">Dst (nT):</span><span class="sp-data-value" id="sp-val-dst">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">Bz (nT):</span><span class="sp-data-value" id="sp-val-bz">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">Plasmapause:</span><span class="sp-data-value" id="sp-val-pp">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">Lpp Method:</span><span class="sp-data-value" id="sp-val-lpp-method">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">Scalar Lock:</span><span class="sp-data-value sp-mgdh" id="sp-val-phi">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">Toroidal (nT):</span><span class="sp-data-value" id="sp-val-toroidal">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">T/P Ratio:</span><span class="sp-data-value" id="sp-val-tp-ratio">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">SW Speed:</span><span class="sp-data-value" id="sp-val-sw-speed">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">SW Density:</span><span class="sp-data-value" id="sp-val-sw-density">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">QNN Pred:</span><span class="sp-data-value sp-mgdh" id="sp-val-qnn">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">Coherence:</span><span class="sp-data-value sp-mgdh" id="sp-val-coherence">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">Scalar Acc:</span><span class="sp-data-value sp-accuracy" id="sp-val-accuracy">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">Ω-Gateway:</span><span class="sp-data-value sp-gateway" id="sp-val-gateway">--</span></div>
+        <div class="sp-data-row"><span class="sp-data-label">Wild Torus:</span><span class="sp-data-value sp-wild" id="sp-val-wild">--</span></div>
+        <div class="sp-status" id="sp-data-status">Connecting to Ω-Gateway...</div>
+      </div>
+      <div id="sp-model-attribution">
+        <div style="color:#c8a04e;margin-bottom:2px;font-size:8px;">◈ ACTIVE MODELS</div>
+        <div class="sp-model-name">• Carpenter-Anderson (density)</div>
+        <div class="sp-model-name">• O'Brien-Moldwin (Lpp)</div>
+        <div class="sp-model-name">• Larsen et al. (IMF Bz+Φ)</div>
+        <div class="sp-model-name">• Quaternionic Neural Network (QNN)</div>
+        <div class="sp-model-name" style="color:#4a9eff;">• Ω-Gateway · Global Coherence API</div>
+        <div class="sp-model-name" style="color:#ff6b6b;">• Wild Tetrahedra · Toroidal Polyhedra</div>
+        <div class="sp-mgdh-credit"><strong>MGDH</strong> · Macachor · Gauss · De Pretto · Hamilton</div>
+        <div class="sp-mgdh-credit" style="color:var(--gold);font-size:7px;">𝔐 = 0.61803398874989484820</div>
+        <div class="sp-wild-credit">▣ Perfect Chains of Wild Tetrahedra (Akpanya et al. 2024)</div>
+        <div class="sp-accuracy-note">4D Scalar Accuracy: 50+ decimal places</div>
+      </div>
+      <div id="sp-scalar-readout">
+        <span id="sp-scalar-text">4D MGDH: ℒ = ||Ψ||² − 𝔐·∇·Ψ + Φ·Ψ | ∂Ψ/∂t + 𝔐·∇·Ψ = ||Ψ||² | Wild Torus: 14 Tetrahedra</span>
+      </div>
+      <div id="sp-perf-readout"><span id="sp-fps-text">-- fps</span></div>
+      <div class="sp-cycle-indicator" id="sp-cycle-indicator"></div>
+      <div id="sp-controls">
+        <button id="sp-btn-prev">◀ prev</button>
+        <label>cycle <input type="range" id="sp-slider" min="0" max="1000" value="0"></label>
+        <button id="sp-btn-play">⏸ pause</button>
+        <button id="sp-btn-next">next ▶</button>
+        <select id="sp-view-mode">
+          <option value="unified">Unified</option>
+          <option value="cosmic">Cosmic Only</option>
+          <option value="plasma">Plasma Only</option>
+          <option value="4d-scalar">4D Scalar</option>
+          <option value="wild-torus">Wild Torus</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// LEFT PANE: DIPOLE RADIATION · SCALAR TORUS · MGDH COMPLETE
+// ═══════════════════════════════════════════════════════════════════
+(function() {
+  const PHI = (Math.sqrt(5) - 1) / 2;
+  const M = PHI;
+
+  const canvas = document.getElementById('c-left');
+  const ctx = canvas.getContext('2d');
+  let W, H, DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resize() {
+    const wrap = document.getElementById('dt-canvas-container');
+    W = wrap.clientWidth;
+    H = wrap.clientHeight;
+    canvas.width = W * DPR;
+    canvas.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const R = 130;
+  const r = 55;
+  const segU = 48;
+  const segV = 32;
+
+  let rotX = 0.5, rotY = 0.3, autoRot = true;
+  let drag = false, lastX, lastY;
+  let zoom = 1.0, t = 0;
+
+  const wrap = document.getElementById('dt-canvas-container');
+  wrap.addEventListener('mousedown', e => { drag = true; autoRot = false; lastX = e.clientX; lastY = e.clientY; });
+  window.addEventListener('mouseup', () => { drag = false; });
+  window.addEventListener('mousemove', e => {
+    if (!drag) return;
+    rotY += (e.clientX - lastX) * 0.008;
+    rotX += (e.clientY - lastY) * 0.008;
+    lastX = e.clientX; lastY = e.clientY;
+  });
+  wrap.addEventListener('wheel', e => { e.preventDefault(); zoom *= Math.exp(-e.deltaY * 0.001); zoom = Math.max(0.3, Math.min(3.0, zoom)); }, {passive:false});
+  wrap.addEventListener('touchstart', e => { if(e.touches.length===1){ autoRot=false; lastX=e.touches[0].clientX; lastY=e.touches[0].clientY; } }, {passive:false});
+  wrap.addEventListener('touchmove', e => { if(e.touches.length===1){ rotY+=(e.touches[0].clientX-lastX)*0.01; rotX+=(e.touches[0].clientY-lastY)*0.01; lastX=e.touches[0].clientX; lastY=e.touches[0].clientY; } e.preventDefault(); }, {passive:false});
+
+  function rotate(p) {
+    let y = p.y * Math.cos(rotX) - p.z * Math.sin(rotX);
+    let z = p.y * Math.sin(rotX) + p.z * Math.cos(rotX);
+    let x = p.x * Math.cos(rotY) - z * Math.sin(rotY);
+    z = p.x * Math.sin(rotY) + z * Math.cos(rotY);
+    return { x, y, z };
+  }
+  function project(p) {
+    const fov = 750;
+    const s = fov / (fov + p.z + 500) * zoom;
+    return { x: W/2 + p.x * s, y: H/2 + p.y * s, z: p.z, s: s };
+  }
+
+  function dipoleRadius(theta) {
+    const sinT = Math.sin(theta);
+    return r * (0.3 + 0.7 * sinT * sinT);
+  }
+
+  function torusPoint(theta, phi) {
+    const minorR = dipoleRadius(phi);
+    return {
+      x: (R + minorR * Math.cos(theta)) * Math.cos(phi),
+      y: minorR * Math.sin(theta),
+      z: (R + minorR * Math.cos(theta)) * Math.sin(phi)
+    };
+  }
+
+  const mesh = [];
+  for (let u = 0; u < segU; u++) {
+    for (let v = 0; v < segV; v++) {
+      const theta1 = (u / segU) * Math.PI * 2;
+      const theta2 = ((u + 1) / segU) * Math.PI * 2;
+      const phi1 = (v / segV) * Math.PI * 2;
+      const phi2 = ((v + 1) / segV) * Math.PI * 2;
+
+      const p00 = torusPoint(theta1, phi1);
+      const p10 = torusPoint(theta2, phi1);
+      const p11 = torusPoint(theta2, phi2);
+      const p01 = torusPoint(theta1, phi2);
+
+      const nx = (p00.x + p10.x + p11.x + p01.x) / 4;
+      const ny = (p00.y + p10.y + p11.y + p01.y) / 4;
+      const nz = (p00.z + p10.z + p11.z + p01.z) / 4;
+      const nLen = Math.sqrt(nx*nx + ny*ny + nz*nz) || 1;
+
+      const sinT = Math.sin(theta1);
+      const scalarMag = sinT * sinT;
+
+      mesh.push({
+        pts: [p00, p10, p11, p01],
+        nx: nx / nLen, ny: ny / nLen, nz: nz / nLen,
+        scalarMag: scalarMag,
+        theta: theta1,
+        phi: phi1
+      });
+    }
+  }
+
+  const fieldLines = [];
+  for (let i = 0; i < 24; i++) {
+    const phi0 = (i / 24) * Math.PI * 2;
+    const pts = [];
+    for (let s = 0; s <= 80; s++) {
+      const frac = s / 80;
+      const rField = R + r * (0.5 + frac * 2.5);
+      const theta = frac * Math.PI * 2 * 3 + phi0;
+      pts.push({
+        x: rField * Math.cos(phi0) * Math.cos(theta * 0.1),
+        y: rField * Math.sin(theta * 0.1) * 0.3,
+        z: rField * Math.sin(phi0) * Math.cos(theta * 0.1)
+      });
+    }
+    fieldLines.push({ pts, hue: i % 3 === 0 ? '#4e8ac8' : '#c8a04e' });
+  }
+
+  function draw() {
+    ctx.fillStyle = '#080808';
+    ctx.fillRect(0, 0, W, H);
+    t += 0.016;
+    if (autoRot) { rotY += 0.0015; rotX = 0.5 + Math.sin(t * 0.25) * 0.08; }
+
+    const glow = ctx.createRadialGradient(W/2, H/2, 30, W/2, H/2, 250);
+    glow.addColorStop(0, 'rgba(200,160,78,0.04)');
+    glow.addColorStop(0.5, 'rgba(78,138,200,0.02)');
+    glow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    const rendered = [];
+    mesh.forEach(face => {
+      const rpts = face.pts.map(p => project(rotate(p)));
+      const avgZ = rpts.reduce((s, p) => s + p.z, 0) / 4;
+      const rotN = rotate({ x: face.nx, y: face.ny, z: face.nz });
+      rendered.push({ type: 'face', pts: rpts, z: avgZ, nx: rotN.x, ny: rotN.y, nz: rotN.z, scalar: face.scalarMag });
+    });
+
+    fieldLines.forEach(line => {
+      const rpts = line.pts.map(p => project(rotate(p)));
+      const avgZ = rpts.reduce((s, p) => s + p.z, 0) / rpts.length;
+      rendered.push({ type: 'field', pts: rpts, z: avgZ, hue: line.hue });
+    });
+
+    const axisPts = [
+      project(rotate({ x: 0, y: -R - r * 2, z: 0 })),
+      project(rotate({ x: 0, y: R + r * 2, z: 0 }))
+    ];
+    rendered.push({ type: 'axis', pts: axisPts, z: (axisPts[0].z + axisPts[1].z) / 2 });
+
+    rendered.sort((a, b) => b.z - a.z);
+
+    rendered.forEach(item => {
+      const depth = Math.max(0, Math.min(1, (item.z + 300) / 600));
+      const alpha = 0.15 + depth * 0.8;
+
+      if (item.type === 'face') {
+        const light = Math.max(0.1, (item.nz + 1) / 2);
+        const scalarHue = item.scalar;
+        const r = Math.round(40 + scalarHue * 160 + light * 60);
+        const g = Math.round(60 + scalarHue * 100 + light * 50);
+        const b = Math.round(120 + (1 - scalarHue) * 80 + light * 30);
+        const baseColor = `rgb(${r},${g},${b})`;
+
+        ctx.globalAlpha = alpha * 0.55;
+        ctx.fillStyle = baseColor;
+        ctx.strokeStyle = `rgba(${r},${g},${b},0.3)`;
+        ctx.lineWidth = 0.4;
+        ctx.beginPath();
+        item.pts.forEach((p, i) => { if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); });
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        if (item.nz > 0.3) {
+          ctx.globalAlpha = alpha * 0.15;
+          ctx.fillStyle = 'rgba(255,255,255,0.3)';
+          ctx.fill();
+        }
+      }
+      else if (item.type === 'field') {
+        ctx.globalAlpha = alpha * 0.35;
+        ctx.strokeStyle = item.hue;
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        item.pts.forEach((p, i) => { if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); });
+        ctx.stroke();
+      }
+      else if (item.type === 'axis') {
+        ctx.globalAlpha = alpha * 0.5;
+        ctx.strokeStyle = '#c8a04e';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(item.pts[0].x, item.pts[0].y);
+        ctx.lineTo(item.pts[1].x, item.pts[1].y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.globalAlpha = alpha * 0.7;
+        ctx.fillStyle = '#c8a04e';
+        ctx.font = '9px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('↑ DIPOLE AXIS', item.pts[0].x, item.pts[0].y - 8);
+        ctx.fillText('↓', item.pts[1].x, item.pts[1].y + 14);
+      }
+    });
+
+    ctx.globalAlpha = 1;
+
+    const dots = document.getElementById('dt-phase-dots').children;
+    const phase = Math.floor((t * 0.5) % 5);
+    for (let i = 0; i < 5; i++) {
+      dots[i].classList.toggle('active', i === phase);
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  console.log('%c[Dipole Radiation · Scalar Torus · MGDH Complete]', 'color: #c8a04e; font-weight: bold;');
+  console.log('%cMacachor Absolute: M = ' + PHI, 'color: #ffd700;');
+  console.log('%cMGDH: Macachor · Gauss · De Pretto · Hamilton', 'color: #c8a04e;');
+  console.log('%cDe Pretto 1903: Aether is the scalar substrate', 'color: #4e8ac8;');
+})();
+
+// ═══════════════════════════════════════════════════════════════════
+// RIGHT PANE: SCALAR-PLASMA CYCLE v5.1 — 4D EXPANDED
+// ═══════════════════════════════════════════════════════════════════
+(function() {
+  const PHI_FULL = 0.61803398874989484820458683436563811772030917980576;
+  const PHI = (Math.sqrt(5) - 1) / 2;
+  const M = PHI;
+  const MGDH_NAMES = ['Macachor', 'Gauss', 'De Pretto', 'Hamilton'];
+  const MGDH_LAGRANGIAN = 'ℒ = ||Ψ||² − 𝔐·∇·Ψ + Φ·Ψ';
+  const GEOMAGNETIC_TILT = 0.2;
+
+  const WILD_EDGE_A = 1;
+  const WILD_EDGE_B = Math.sqrt(150 + 30 * Math.sqrt(5)) / 10;
+  const WILD_EDGE_C = (Math.sqrt(5) + 1) / 2;
+
+  const GATEWAY_URL = 'https://coherence-gateway.onrender.com';
+  const NOAA = {
+    kp:      'https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json',
+    dst:     'https://services.swpc.noaa.gov/products/kyoto-dst.json',
+    rtswMag: 'https://services.swpc.noaa.gov/json/rtsw/rtsw_mag_lm.json',
+    rtswWind:'https://services.swpc.noaa.gov/json/rtsw/rtsw_wind_lm.json'
+  };
+
+  function qAdd(a, b) { return { w: a.w + b.w, x: a.x + b.x, y: a.y + b.y, z: a.z + b.z }; }
+  function qMul(a, b) {
+    return {
+      w: a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z,
+      x: a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
+      y: a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x,
+      z: a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w
+    };
+  }
+  function qNorm(q) { return Math.sqrt(q.w*q.w + q.x*q.x + q.y*q.y + q.z*q.z); }
+  function qScale(q, s) { return { w: q.w*s, x: q.x*s, y: q.y*s, z: q.z*s }; }
+  function qZero() { return { w:0, x:0, y:0, z:0 }; }
+  function qNormSq(q) { return q.w*q.w + q.x*q.x + q.y*q.y + q.z*q.z; }
+
+  class QuaternionicNeuralNetwork {
+    constructor(layers) {
+      this.layers = layers;
+      this.weights = [];
+      this.biases = [];
+      this.initializeWeights();
+    }
+    initializeWeights() {
+      for (let i = 0; i < this.layers.length - 1; i++) {
+        const inDim = this.layers[i];
+        const outDim = this.layers[i + 1];
+        this.weights.push(this.randomQuaternionic(outDim, inDim));
+        this.biases.push(this.randomQuaternionic(outDim, 1));
+      }
+    }
+    randomQuaternionic(rows, cols) {
+      const W = [];
+      for (let i = 0; i < rows; i++) {
+        W[i] = [];
+        for (let j = 0; j < cols; j++) {
+          W[i][j] = {
+            w: (Math.random() - 0.5) * 0.5,
+            x: (Math.random() - 0.5) * 0.5,
+            y: (Math.random() - 0.5) * 0.5,
+            z: (Math.random() - 0.5) * 0.5
+          };
+        }
+      }
+      return W;
+    }
+    quaternionicActivation(x) {
+      const n = qNorm(x);
+      if (n <= 0.001) return qZero();
+      const scale = Math.min(1, Math.max(0.01, n)) / n;
+      return qScale(x, scale);
+    }
+    denseLayer(PsiIn, W, b) {
+      const PsiOut = [];
+      for (let i = 0; i < W.length; i++) {
+        let sum = qZero();
+        for (let j = 0; j < W[i].length; j++) {
+          sum = qAdd(sum, qMul(W[i][j], PsiIn[j]));
+        }
+        PsiOut[i] = qAdd(sum, b[i][0]);
+      }
+      return PsiOut;
+    }
+    forward(PsiIn) {
+      let Psi = PsiIn;
+      for (let l = 0; l < this.weights.length; l++) {
+        Psi = this.denseLayer(Psi, this.weights[l], this.biases[l]);
+        Psi = Psi.map(v => this.quaternionicActivation(v));
+      }
+      return Psi;
+    }
+  }
+
+  class DipoleToroidalModel {
+    constructor() {
+      this.R_E = 6.371e6;
+      this.m = { x: 0, y: 0, z: 7.94e22 };
+      this.QNN = new QuaternionicNeuralNetwork([8, 16, 32, 16, 8]);
+      this.lastPsi = null;
+      this.lastQOut = null;
+      this.coherenceValue = 0;
+      this.scalarAccuracy = 0;
+      this.gatewayStatus = 'DISCONNECTED';
+      this.wildEdges = [WILD_EDGE_A, WILD_EDGE_B, WILD_EDGE_C];
+      this.wildTorusActive = false;
+    }
+    computeDipoleField(r, theta, phi) {
+      const rHat = {
+        x: Math.sin(theta) * Math.cos(phi),
+        y: Math.sin(theta) * Math.sin(phi),
+        z: Math.cos(theta)
+      };
+      const dot = this.m.x * rHat.x + this.m.y * rHat.y + this.m.z * rHat.z;
+      const factor = 1e-7 / (r * r * r);
+      return {
+        x: factor * (3 * dot * rHat.x - this.m.x),
+        y: factor * (3 * dot * rHat.y - this.m.y),
+        z: factor * (3 * dot * rHat.z - this.m.z)
+      };
+    }
+    computeToroidalField(r, theta, phi) {
+      const B0 = 3.12e-5;
+      const factor = B0 * Math.pow(this.R_E / r, 3);
+      return {
+        x: factor * Math.cos(theta) * Math.sin(theta) * Math.cos(phi),
+        y: factor * Math.cos(theta) * Math.sin(theta) * Math.sin(phi),
+        z: factor * Math.cos(theta) * Math.cos(theta)
+      };
+    }
+    computeState(x, y, z) {
+      const r = Math.sqrt(x*x + y*y + z*z);
+      if (r < 1e-6) return this.defaultState();
+      const theta = Math.acos(Math.max(-1, Math.min(1, z / r)));
+      const phi = Math.atan2(y, x);
+      const B_dip = this.computeDipoleField(r, theta, phi);
+      const B_tor = this.computeToroidalField(r, theta, phi);
+      const rho = 1.0 + 0.1 * Math.sin(theta) * Math.exp(-Math.pow(r / this.R_E - 1, 2) / 4);
+      const u = { x: -B_tor.y, y: B_tor.x, z: 0 };
+      const p = 1e-5 * Math.exp(-r / (4 * this.R_E));
+      const T = 300 + 100 * (r < 4 * this.R_E ? 1 : Math.exp(-Math.pow(r / this.R_E - 4, 2) / 16));
+      const e = 718 * T + 0.5 * (u.x*u.x + u.y*u.y + u.z*u.z);
+      return { rho, u, p, T, e, B_dip, B_tor, r, theta, phi };
+    }
+    defaultState() {
+      return {
+        rho: 1, u: { x:0, y:0, z:0 }, p: 1e-5, T: 300, e: 2.154e5,
+        B_dip: { x:0, y:0, z:0 }, B_tor: { x:0, y:0, z:0 },
+        r: this.R_E, theta: 0, phi: 0
+      };
+    }
+    stateToQuaternionic(Psi) {
+      return [
+        { w: Psi.rho, x: Psi.u.x, y: Psi.u.y, z: Psi.u.z },
+        { w: Psi.p, x: 0, y: 0, z: 0 },
+        { w: Psi.T, x: 0, y: 0, z: 0 },
+        { w: Psi.e, x: 0, y: 0, z: 0 },
+        { w: Psi.B_dip.x, x: Psi.B_dip.y, y: Psi.B_dip.z, z: 0 },
+        { w: Psi.B_tor.x, x: Psi.B_tor.y, y: Psi.B_tor.z, z: 0 },
+        { w: Math.sin(Psi.theta), x: Math.cos(Psi.theta), y: Math.sin(Psi.phi), z: Math.cos(Psi.phi) },
+        { w: PHI, x: 0, y: 0, z: 0 }
+      ];
+    }
+    predict(Psi) {
+      const qIn = this.stateToQuaternionic(Psi);
+      this.lastPsi = Psi;
+      this.lastQOut = this.QNN.forward(qIn);
+      const magSq = this.getScalarMagnitudeSq(Psi);
+      const divEst = magSq / (PHI + 0.001);
+      this.coherenceValue = Math.abs(magSq - PHI * divEst) / (magSq + 0.001);
+      this.scalarAccuracy = 1.0 / (1.0 + this.coherenceValue);
+      return this.lastQOut;
+    }
+    getScalarMagnitudeSq(Psi) {
+      return Psi.rho*Psi.rho + Psi.u.x*Psi.u.x + Psi.u.y*Psi.u.y + Psi.u.z*Psi.u.z +
+             Psi.p*Psi.p + Psi.T*Psi.T + Psi.e*Psi.e;
+    }
+    getScalarMagnitude(Psi) { return Math.sqrt(this.getScalarMagnitudeSq(Psi)); }
+    getCoherence() { return 1 - Math.min(this.coherenceValue, 1); }
+    getScalarAccuracy() { return this.scalarAccuracy; }
+    getGatewayStatus() { return this.gatewayStatus; }
+    getWildTetrahedronCoordinates(x, h) {
+      const x2 = x * x;
+      return [
+        { x: 0.5, y: 0, z: 0 },
+        { x: -0.5, y: 0, z: 0 },
+        { x: (x2 - 1) / (2 * (x2 + 1)), y: x / (x2 + 1), z: h },
+        { x: (-x2 + 1) / (2 * (x2 + 1)), y: -x / (x2 + 1), z: h }
+      ];
+    }
+    getWildEdgeLengths(x, h) {
+      const x2 = x * x;
+      const b = Math.sqrt((h * h * x2 + x2 + 1) / (x2 + 1));
+      const c = Math.sqrt((h * h * x2 + x2 + h * h) / (x2 + 1));
+      return [1, b, c];
+    }
+  }
+
+  const dtModel = new DipoleToroidalModel();
+
+  const canvas = document.getElementById('c-right');
+  const ctx = canvas.getContext('2d');
+  const titleEl = document.getElementById('sp-title');
+  const phaseEl = document.getElementById('sp-phase-text');
+  const slider = document.getElementById('sp-slider');
+  const btnPlay = document.getElementById('sp-btn-play');
+  const btnPrev = document.getElementById('sp-btn-prev');
+  const btnNext = document.getElementById('sp-btn-next');
+  const viewMode = document.getElementById('sp-view-mode');
+  const cycleIndicator = document.getElementById('sp-cycle-indicator');
+  const loadingEl = document.getElementById('sp-loading');
+  const fpsText = document.getElementById('sp-fps-text');
+  const valKp = document.getElementById('sp-val-kp');
+  const valAe = document.getElementById('sp-val-ae');
+  const valDst = document.getElementById('sp-val-dst');
+  const valBz = document.getElementById('sp-val-bz');
+  const valPp = document.getElementById('sp-val-pp');
+  const valLppMethod = document.getElementById('sp-val-lpp-method');
+  const valPhi = document.getElementById('sp-val-phi');
+  const valToroidal = document.getElementById('sp-val-toroidal');
+  const valTpRatio = document.getElementById('sp-val-tp-ratio');
+  const valSwSpeed = document.getElementById('sp-val-sw-speed');
+  const valSwDensity = document.getElementById('sp-val-sw-density');
+  const valQnn = document.getElementById('sp-val-qnn');
+  const valCoherence = document.getElementById('sp-val-coherence');
+  const valAccuracy = document.getElementById('sp-val-accuracy');
+  const valGateway = document.getElementById('sp-val-gateway');
+  const valWild = document.getElementById('sp-val-wild');
+  const dataStatus = document.getElementById('sp-data-status');
+  const scalarText = document.getElementById('sp-scalar-text');
+  const connStatus = document.getElementById('sp-conn-status');
+  const connMsg = document.getElementById('sp-conn-msg');
+
+  let w, h, t = 0;
+  let auto = true, manualT = 21, view = 'unified';
+  let lastFrameTime = 0, frameCount = 0, fps = 60;
+  let dataFetchAttempts = 0;
+  const MAX_FETCH_ATTEMPTS = 3;
+
+  const spaceWeather = {
+    kp: 2.0, ae: 50, dst: 0, bz: 0, by: 0, bx: 0,
+    swSpeed: 400, swDensity: 5,
+    lastUpdate: null, connected: false, lppMethod: 'Carpenter-Anderson',
+    gatewayStatus: 'DISCONNECTED'
+  };
+
+  const phases = [
+    { name: '0 · The Void', sub: '4D Cosmic Egg — Pre-numeric Absolute', t: 0.0 },
+    { name: '1 · Mitosis', sub: '4D Cellular Division — Binary Emergence', t: 0.25 },
+    { name: 'M · Emergence', sub: '4D Dipole + Torus — Symmetric Foundation', t: 0.5 },
+    { name: '3 · Decay', sub: '4D Tilt + Solar Wind — Asymmetric Reality', t: 0.75 },
+    { name: '4 · Integration', sub: '4D MGDH Complete · Wild Torus', t: 1.0 }
+  ];
+
+  function prng(n) { let x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+  function smoothstep(e0, e1, x) { const t = clamp((x - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); }
+
+  phases.forEach((p, i) => {
+    const label = document.createElement('div');
+    label.className = 'sp-cycle-label';
+    label.textContent = p.name;
+    cycleIndicator.appendChild(label);
+    const dot = document.createElement('div');
+    dot.className = 'sp-cycle-dot';
+    dot.id = 'sp-dot-' + i;
+    cycleIndicator.appendChild(dot);
+  });
+
+  function resize() { w = canvas.width = window.innerWidth / 2; h = canvas.height = window.innerHeight - document.querySelector('.gold-nav').offsetHeight; }
+  window.addEventListener('resize', resize);
+  resize();
+
+  async function fetchJSON(url, timeoutMs = 8000) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const proxyUrl = 'https://api.allorigins.win/raw?url=';
+      const finalUrl = proxyUrl + encodeURIComponent(url);
+      const response = await fetch(finalUrl, { signal: controller.signal });
+      clearTimeout(timer);
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      return await response.json();
+    } catch (e) {
+      clearTimeout(timer);
+      throw e;
+    }
+  }
+  function parseKp(data) {
+    if (!data || !data.length) return 2.0;
+    const latest = data[data.length - 1];
+    if (latest.Kp !== undefined) return parseFloat(latest.Kp);
+    if (Array.isArray(latest)) return parseFloat(latest[1] ?? 2.0);
+    return 2.0;
+  }
+  function parseDst(data) {
+    if (!data || !data.length) return 0;
+    const latest = data[data.length - 1];
+    if (latest.dst !== undefined) return parseInt(latest.dst);
+    if (Array.isArray(latest)) return parseInt(latest[1] ?? 0);
+    return 0;
+  }
+  function parseRTSWMag(data) {
+    if (!data) return { bx: 0, by: 0, bz: 0 };
+    const entry = Array.isArray(data) ? data[data.length - 1] : data;
+    if (entry.bx !== undefined) {
+      return { bx: parseFloat(entry.bx ?? 0), by: parseFloat(entry.by ?? 0), bz: parseFloat(entry.bz ?? 0) };
+    }
+    if (Array.isArray(entry)) {
+      return { bx: parseFloat(entry[1] ?? 0), by: parseFloat(entry[2] ?? 0), bz: parseFloat(entry[3] ?? 0) };
+    }
+    return { bx: 0, by: 0, bz: 0 };
+  }
+  function parseRTSWWind(data) {
+    if (!data) return { speed: 400, density: 5 };
+    const entry = Array.isArray(data) ? data[data.length - 1] : data;
+    if (entry.speed !== undefined) {
+      return { speed: parseFloat(entry.speed ?? 400), density: parseFloat(entry.proton_density ?? entry.density ?? 5) };
+    }
+    if (Array.isArray(entry)) {
+      return { speed: parseFloat(entry[1] ?? 400), density: parseFloat(entry[2] ?? 5) };
+    }
+    return { speed: 400, density: 5 };
+  }
+  function estimateAE(kp, dst) {
+    return Math.round(80 * Math.pow(kp, 1.5) + Math.max(0, -dst) * 2);
+  }
+
+  async function fetchGatewayData() {
+    try {
+      const resp = await fetch(GATEWAY_URL + '/api/scalar/latest', { signal: AbortSignal.timeout(5000) });
+      if (!resp.ok) throw new Error('Gateway error');
+      const data = await resp.json();
+      spaceWeather.gatewayStatus = 'CONNECTED';
+      dataStatus.textContent = 'Ω-Gateway: LIVE';
+      dataStatus.style.color = '#4a9eff';
+      return data;
+    } catch (e) {
+      console.warn('Gateway fetch error:', e);
+      spaceWeather.gatewayStatus = 'DISCONNECTED';
+      dataStatus.textContent = 'Ω-Gateway: OFFLINE (fallback)';
+      dataStatus.style.color = '#884444';
+      return null;
+    }
+  }
+
+  async function fetchNOAAData() {
+    dataFetchAttempts++;
+    if (dataFetchAttempts === 1) {
+      connStatus.classList.add('sp-visible');
+      connMsg.textContent = 'Linking to Ω-Gateway...';
+    }
+    const gatewayData = await fetchGatewayData();
+    if (gatewayData) {
+      const scalar = gatewayData.scalar || {};
+      const drivers = gatewayData.drivers || {};
+      const nasa = drivers.nasa || {};
+      const solarWind = nasa.solar_wind || [];
+      if (solarWind.length > 0) {
+        const latest = solarWind[solarWind.length - 1] || {};
+        spaceWeather.swSpeed = latest.speed || 400;
+        spaceWeather.swDensity = latest.density || 5;
+      }
+      const coherence = scalar.coherence || {};
+      spaceWeather.kp = 2.0 + (1 - (coherence.score || 0.5)) * 5;
+      spaceWeather.ae = Math.round(50 + (1 - (coherence.score || 0.5)) * 200);
+      spaceWeather.dst = Math.round((coherence.score || 0.5) * -30);
+      spaceWeather.bz = -2 + (1 - (coherence.score || 0.5)) * 5;
+      spaceWeather.connected = true;
+      spaceWeather.lppMethod = 'Ω-Gateway';
+      connMsg.textContent = 'Ω-Gateway link established.';
+      setTimeout(() => connStatus.classList.remove('sp-visible'), 1500);
+      updateUI();
+      loadingEl.classList.add('sp-hidden');
+      return;
+    }
+    let kpData = null, dstData = null, magData = null, windData = null;
+    try {
+      const [kpResp, dstResp, magResp, windResp] = await Promise.allSettled([
+        fetchJSON(NOAA.kp), fetchJSON(NOAA.dst), fetchJSON(NOAA.rtswMag), fetchJSON(NOAA.rtswWind)
+      ]);
+      if (kpResp.status === 'fulfilled') kpData = kpResp.value;
+      if (dstResp.status === 'fulfilled') dstData = dstResp.value;
+      if (magResp.status === 'fulfilled') magData = magResp.value;
+      if (windResp.status === 'fulfilled') windData = windResp.value;
+      spaceWeather.kp = parseKp(kpData);
+      spaceWeather.dst = parseDst(dstData);
+      const imf = parseRTSWMag(magData);
+      spaceWeather.bx = imf.bx; spaceWeather.by = imf.by; spaceWeather.bz = imf.bz;
+      const sw = parseRTSWWind(windData);
+      spaceWeather.swSpeed = sw.speed; spaceWeather.swDensity = sw.density;
+      spaceWeather.ae = estimateAE(spaceWeather.kp, spaceWeather.dst);
+      spaceWeather.connected = true;
+      spaceWeather.lppMethod = 'NOAA Direct';
+    } catch (e) {
+      console.warn('NOAA fetch error:', e);
+      spaceWeather.connected = false;
+    }
+    if (Math.abs(spaceWeather.bz) > 3) spaceWeather.lppMethod = 'Larsen IMF';
+    else if (Math.abs(spaceWeather.dst) > 20 || spaceWeather.ae > 100) spaceWeather.lppMethod = "O'Brien-Moldwin";
+    else spaceWeather.lppMethod = 'Carpenter-Anderson';
+    updateUI();
+    if (spaceWeather.connected) {
+      dataStatus.textContent = 'Live — ' + new Date().toLocaleTimeString();
+      dataStatus.style.color = '#448844';
+      connMsg.textContent = 'NOAA link established.';
+      setTimeout(() => connStatus.classList.remove('sp-visible'), 1500);
+    } else {
+      dataStatus.textContent = 'Offline — defaults (retry ' + dataFetchAttempts + '/' + MAX_FETCH_ATTEMPTS + ')';
+      dataStatus.style.color = '#884444';
+      connMsg.textContent = 'NOAA offline — using default values.';
+      if (dataFetchAttempts >= MAX_FETCH_ATTEMPTS) {
+        setTimeout(() => connStatus.classList.remove('sp-visible'), 2000);
+      } else {
+        setTimeout(fetchNOAAData, 5000);
+      }
+    }
+    loadingEl.classList.add('sp-hidden');
+  }
+
+  function updateUI() {
+    valKp.textContent = spaceWeather.kp.toFixed(1);
+    valAe.textContent = spaceWeather.ae;
+    valDst.textContent = spaceWeather.dst;
+    valBz.textContent = spaceWeather.bz.toFixed(1);
+    valPp.textContent = 'L=' + plasmapauseL().toFixed(2);
+    valLppMethod.textContent = spaceWeather.lppMethod;
+    valPhi.textContent = 'M=' + PHI.toFixed(6);
+    const toroidalAmp = 15 * (spaceWeather.swSpeed / 400) * (spaceWeather.kp / 2);
+    const tpRatio = 10 * (spaceWeather.swDensity / 5);
+    valToroidal.textContent = toroidalAmp.toFixed(1);
+    valTpRatio.textContent = tpRatio.toFixed(1) + ':1';
+    valSwSpeed.textContent = spaceWeather.swSpeed.toFixed(0) + ' km/s';
+    valSwDensity.textContent = spaceWeather.swDensity.toFixed(1) + ' cm⁻³';
+    valKp.classList.toggle('sp-alert', spaceWeather.kp >= 5);
+    valDst.classList.toggle('sp-alert', spaceWeather.dst < -50);
+    valBz.classList.toggle('sp-alert', spaceWeather.bz < -5);
+    valGateway.textContent = spaceWeather.gatewayStatus;
+    valGateway.style.color = spaceWeather.gatewayStatus === 'CONNECTED' ? '#4a9eff' : '#884444';
+    valWild.textContent = '14-chain ✓';
+    valWild.style.color = '#ff6b6b';
+    updateQNN();
+    const lpp = plasmapauseL();
+    scalarText.textContent = '4D MGDH: ℒ = ||Ψ||² − ' + PHI.toFixed(4) + '·∇·Ψ + Φ·Ψ | ∂Ψ/∂t + ' + PHI.toFixed(4) + '·∇·Ψ = ||Ψ||² | Wild Torus: 14 Tetrahedra | L=' + lpp.toFixed(2);
+  }
+
+  function updateQNN() {
+    const Psi = dtModel.computeState(3 * dtModel.R_E, 2 * dtModel.R_E, 1 * dtModel.R_E);
+    const pred = dtModel.predict(Psi);
+    const predNorm = Math.sqrt(pred.reduce((s, q) => s + qNormSq(q), 0));
+    valQnn.textContent = predNorm.toFixed(4);
+    const coherence = dtModel.getCoherence();
+    valCoherence.textContent = (coherence * 100).toFixed(1) + '%';
+    valCoherence.style.color = coherence > 0.9 ? '#4ec88a' : coherence > 0.7 ? '#ffcc66' : '#ff4444';
+    const accuracy = dtModel.getScalarAccuracy();
+    valAccuracy.textContent = (accuracy * 100).toFixed(2) + '%';
+    valAccuracy.style.color = accuracy > 0.9 ? '#4ec88a' : accuracy > 0.7 ? '#ffcc66' : '#ff4444';
+  }
+
+  function obrienMoldwinLpp() {
+    return clamp(5.39 - 0.382 * spaceWeather.kp - 0.001 * spaceWeather.ae - 0.005 * Math.max(0, -spaceWeather.dst), 2.0, 8.0);
+  }
+  function larsenLpp() {
+    const clockAngle = Math.atan2(spaceWeather.by, spaceWeather.bz);
+    const phi = Math.sqrt(spaceWeather.by * spaceWeather.by + spaceWeather.bz * spaceWeather.bz);
+    return clamp(5.2 - 0.3 * spaceWeather.kp - 0.15 * phi * Math.cos(clockAngle) - 0.05 * Math.max(0, -spaceWeather.dst), 2.0, 8.0);
+  }
+  function carpenterAndersonLpp() {
+    return clamp(5.6 - 0.46 * spaceWeather.kp, 2.0, 8.0);
+  }
+  function plasmapauseL() {
+    if (!spaceWeather.connected) return carpenterAndersonLpp();
+    if (Math.abs(spaceWeather.bz) > 2) return larsenLpp();
+    if (Math.abs(spaceWeather.dst) > 20 || spaceWeather.ae > 100) return obrienMoldwinLpp();
+    return carpenterAndersonLpp();
+  }
+
+  const stars_arr = [];
+  for (let i = 0; i < 300; i++) {
+    stars_arr.push({
+      x: (prng(i * 2) - 0.5), y: (prng(i * 2 + 1) - 0.5),
+      size: prng(i * 3) * 1.5 + 0.5, twinkle: prng(i * 5) * Math.PI * 2
+    });
+  }
+
+  function drawStarsField(alpha, parallax) {
+    stars_arr.forEach(s => {
+      const tw = Math.sin(t * 2 + s.twinkle) * 0.3 + 0.7;
+      const px = w * (0.5 + s.x * 1.5 + parallax * s.x * 0.3);
+      const py = h * (0.5 + s.y * 1.5 + parallax * s.y * 0.3);
+      ctx.globalAlpha = alpha * tw * 0.8;
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(px, py, s.size, 0, Math.PI * 2); ctx.fill();
+    });
+  }
+
+  function draw4DScalarField(cx, cy, scale, alpha) {
+    ctx.save(); ctx.translate(cx, cy); ctx.globalAlpha = alpha * 0.3;
+    const gridSize = 8; const spacing = scale * 0.15;
+    for (let i = 0; i < gridSize; i++) {
+      for (let j = 0; j < gridSize; j++) {
+        const x = (i - gridSize/2) * spacing;
+        const y = (j - gridSize/2) * spacing;
+        const r = Math.sqrt(x*x + y*y);
+        const phi_val = Math.sin(t * 0.5 + r * 0.3) * 0.5 + 0.5;
+        const size = 1 + phi_val * 3;
+        const opacity = 0.1 + phi_val * 0.4;
+        ctx.fillStyle = 'rgba(100,200,255,' + (opacity * 0.5) + ')';
+        ctx.beginPath(); ctx.arc(x, y, size, 0, Math.PI * 2); ctx.fill();
+        const timeOffset = Math.sin(t * 0.2 + r * 0.5) * spacing * 0.3;
+        ctx.strokeStyle = 'rgba(255,215,0,' + (opacity * 0.2) + ')';
+        ctx.lineWidth = 0.5;
+        ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + timeOffset, y - timeOffset); ctx.stroke();
+      }
+    }
+    ctx.fillStyle = 'rgba(255,215,0,' + (alpha * 0.4) + ')';
+    ctx.font = "8px monospace"; ctx.textAlign = "center";
+    ctx.fillText('∂Ψ/∂t + 𝔐·∇·Ψ = ||Ψ||²', 0, -scale * 1.6);
+    ctx.fillText('Ψ(x,y,z,t) = ρ + u + p + T + e', 0, -scale * 1.6 + 14);
+    ctx.globalAlpha = 1; ctx.restore();
+  }
+
+  function drawWildTorus(cx, cy, scale, alpha) {
+    ctx.save(); ctx.translate(cx, cy); ctx.globalAlpha = alpha;
+    const numTetra = 14;
+    const majorRadius = scale * 0.7;
+    const minorRadius = scale * 0.25;
+    const twist = t * 0.3;
+    ctx.strokeStyle = 'rgba(255,107,107,' + (alpha * 0.3) + ')';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let i = 0; i <= 100; i++) {
+      const theta = (i / 100) * Math.PI * 2;
+      const x = majorRadius * Math.cos(theta);
+      const z = majorRadius * Math.sin(theta);
+      const y = minorRadius * Math.sin(theta * 2 + twist);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    for (let i = 0; i < numTetra; i++) {
+      const theta = (i / numTetra) * Math.PI * 2 + twist * 0.5;
+      const phi = i * 1.2 + twist * 0.3;
+      const baseX = majorRadius * Math.cos(theta);
+      const baseZ = majorRadius * Math.sin(theta);
+      const baseY = minorRadius * Math.sin(theta * 2 + twist);
+      const size = scale * 0.08;
+      const offset = scale * 0.06;
+      const v1 = { x: baseX + size * Math.cos(phi), y: baseY + size * Math.sin(phi), z: baseZ + offset * Math.cos(theta) };
+      const v2 = { x: baseX + size * Math.cos(phi + 2.1), y: baseY + size * Math.sin(phi + 2.1), z: baseZ + offset * Math.cos(theta + 1) };
+      const v3 = { x: baseX + size * Math.cos(phi + 4.2), y: baseY + size * Math.sin(phi + 4.2), z: baseZ + offset * Math.cos(theta + 2) };
+      const v4 = { x: baseX + size * Math.cos(phi + 1.0) * 0.6, y: baseY + size * Math.sin(phi + 1.0) * 0.6 + offset, z: baseZ + offset * Math.sin(theta) };
+      ctx.strokeStyle = 'rgba(255,107,107,' + (alpha * 0.5) + ')';
+      ctx.lineWidth = 0.8;
+      const edges = [[v1, v2], [v2, v3], [v3, v1], [v1, v4], [v2, v4], [v3, v4]];
+      edges.forEach(([a, b]) => {
+        const perspective = 1 + (a.z + b.z) / (scale * 4);
+        ctx.beginPath(); ctx.moveTo(a.x / perspective, a.y / perspective); ctx.lineTo(b.x / perspective, b.y / perspective); ctx.stroke();
+      });
+      ctx.fillStyle = 'rgba(255,107,107,' + (alpha * 0.08) + ')';
+      const faces = [[v1, v2, v3], [v1, v2, v4], [v1, v3, v4], [v2, v3, v4]];
+      faces.forEach(([a, b, c]) => {
+        const perspective = 1 + (a.z + b.z + c.z) / (scale * 6);
+        ctx.beginPath(); ctx.moveTo(a.x / perspective, a.y / perspective); ctx.lineTo(b.x / perspective, b.y / perspective); ctx.lineTo(c.x / perspective, c.y / perspective); ctx.closePath(); ctx.fill();
+      });
+    }
+    ctx.fillStyle = 'rgba(255,107,107,' + (alpha * 0.7) + ')';
+    ctx.font = "9px monospace"; ctx.textAlign = "center";
+    ctx.fillText('▣ Wild Torus: 14 Tetrahedra', 0, -scale * 1.4);
+    ctx.fillStyle = 'rgba(255,107,107,' + (alpha * 0.4) + ')';
+    ctx.font = "7px monospace";
+    ctx.fillText('(1, √(150+30√5)/10, (√5+1)/2)', 0, -scale * 1.4 + 14);
+    ctx.globalAlpha = 1; ctx.restore();
+  }
+
+  function drawSymmetricDipoleLines(cx, cy, scale, alpha, numLines, color, energyFlow) {
+    ctx.save(); ctx.translate(cx, cy); ctx.globalAlpha = alpha;
+    const poleDist = scale * 0.6;
+    ctx.fillStyle = color;
+    ctx.beginPath(); ctx.arc(0, -poleDist, scale * 0.06, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(0, poleDist, scale * 0.06, 0, Math.PI * 2); ctx.fill();
+    for (let i = 0; i < numLines; i++) {
+      const theta0 = (i / numLines) * Math.PI * 0.48 + 0.02;
+      const loopR = scale * (0.5 + 0.8 * Math.sin(theta0 * Math.PI));
+      for (let side of [1, -1]) {
+        ctx.beginPath(); ctx.strokeStyle = color; ctx.lineWidth = 0.6;
+        for (let step = 0; step <= 100; step++) {
+          const frac = step / 100;
+          const angle = frac * Math.PI * 2 - Math.PI / 2;
+          const lx = side * loopR * Math.cos(angle) * Math.sin(theta0 * Math.PI);
+          const ly = loopR * Math.sin(angle);
+          if (step === 0) ctx.moveTo(lx, ly); else ctx.lineTo(lx, ly);
+        }
+        ctx.stroke();
+      }
+    }
+    if (energyFlow) {
+      const flowT = t * 1.5;
+      for (let i = 0; i < numLines; i++) {
+        const theta0 = (i / numLines) * Math.PI * 0.48 + 0.02;
+        const loopR = scale * (0.5 + 0.8 * Math.sin(theta0 * Math.PI));
+        const arrowPos = (flowT + i * 0.7) % 1;
+        const angle = arrowPos * Math.PI * 2 - Math.PI / 2;
+        for (let side of [-1, 1]) {
+          const ax = side * loopR * Math.cos(angle) * Math.sin(theta0 * Math.PI);
+          const ay = loopR * Math.sin(angle);
+          const nextAngle = angle + 0.12;
+          const nx = side * loopR * Math.cos(nextAngle) * Math.sin(theta0 * Math.PI);
+          const ny = loopR * Math.sin(nextAngle);
+          ctx.strokeStyle = 'rgba(255,200,50,' + (alpha * 0.7) + ')';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(nx, ny); ctx.stroke();
+          const ang = Math.atan2(ny - ay, nx - ax);
+          const ah = 4;
+          ctx.beginPath(); ctx.moveTo(nx, ny);
+          ctx.lineTo(nx - ah * Math.cos(ang - 0.5), ny - ah * Math.sin(ang - 0.5));
+          ctx.lineTo(nx - ah * Math.cos(ang + 0.5), ny - ah * Math.sin(ang + 0.5));
+          ctx.closePath();
+          ctx.fillStyle = 'rgba(255,200,50,' + (alpha * 0.7) + ')';
+          ctx.fill();
+        }
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawTorusPlasmasphere(cx, cy, scale, alpha, tiltAngle) {
+    ctx.save(); ctx.translate(cx, cy);
+    if (STAGE.tilted) ctx.rotate(tiltAngle);
+    const majorR = scale * 0.9; const minorR = scale * 0.35;
+    const segs = 48; const rings = 16;
+    ctx.strokeStyle = 'rgba(100,150,255,0.35)'; ctx.lineWidth = 0.6;
+    for (let i = 0; i < segs; i++) {
+      const theta = (i / segs) * Math.PI * 2;
+      ctx.beginPath();
+      for (let j = 0; j <= rings; j++) {
+        const phi = (j / rings) * Math.PI * 2;
+        const r = majorR + minorR * Math.cos(phi);
+        const x = r * Math.cos(theta);
+        const y = minorR * Math.sin(phi) * 0.4;
+        const z = r * Math.sin(theta);
+        const persp = 1 + z / (scale * 3);
+        if (j === 0) ctx.moveTo(x / persp, y / persp); else ctx.lineTo(x / persp, y / persp);
+      }
+      ctx.stroke();
+    }
+    for (let j = 0; j < rings; j++) {
+      const phi = (j / rings) * Math.PI * 2;
+      ctx.beginPath();
+      for (let i = 0; i <= segs; i++) {
+        const theta = (i / segs) * Math.PI * 2;
+        const r = majorR + minorR * Math.cos(phi);
+        const x = r * Math.cos(theta);
+        const y = minorR * Math.sin(phi) * 0.4;
+        const z = r * Math.sin(theta);
+        const persp = 1 + z / (scale * 3);
+        if (i === 0) ctx.moveTo(x / persp, y / persp); else ctx.lineTo(x / persp, y / persp);
+      }
+      ctx.stroke();
+    }
+    const grad = ctx.createRadialGradient(0, 0, majorR - minorR, 0, 0, majorR + minorR);
+    grad.addColorStop(0, 'rgba(50,80,180,0.08)');
+    grad.addColorStop(0.3, 'rgba(80,120,220,0.25)');
+    grad.addColorStop(0.5, 'rgba(100,150,255,0.35)');
+    grad.addColorStop(0.7, 'rgba(80,120,220,0.25)');
+    grad.addColorStop(1, 'rgba(50,80,180,0.08)');
+    ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.ellipse(0, 0, majorR + minorR, (majorR + minorR) * 0.4, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = 'rgba(200,160,78,0.4)'; ctx.lineWidth = 1.5; ctx.setLineDash([6, 4]);
+    ctx.beginPath(); ctx.moveTo(0, -minorR * 0.5); ctx.lineTo(0, -scale * 2.2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, minorR * 0.5); ctx.lineTo(0, scale * 2.2); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(200,160,78,0.7)';
+    ctx.beginPath(); ctx.arc(0, -scale * 2.2, 4, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(0, scale * 2.2, 4, 0, Math.PI * 2); ctx.fill();
+    const stratT = t * 0.8;
+    for (let i = 0; i < 6; i++) {
+      const angle = (i / 6) * Math.PI * 2 + stratT;
+      const sx = Math.cos(angle) * majorR;
+      const sy = Math.sin(angle) * majorR * 0.4;
+      const arrowLen = minorR * 0.6 * (0.7 + 0.3 * Math.sin(stratT + i));
+      ctx.strokeStyle = 'rgba(100,255,150,0.35)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(sx, sy - arrowLen * 0.5); ctx.lineTo(sx, sy + arrowLen * 0.5); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(sx - 3, sy + arrowLen * 0.5 - 4); ctx.lineTo(sx, sy + arrowLen * 0.5); ctx.lineTo(sx + 3, sy + arrowLen * 0.5 - 4); ctx.stroke();
+    }
+    ctx.fillStyle = 'rgba(200,160,78,0.5)'; ctx.font = '8px monospace'; ctx.textAlign = 'center';
+    ctx.fillText('T/P ≈ 10', 0, -scale * 2.6);
+    if (STAGE.solarWind) {
+      const rotT = t * 0.5;
+      for (let i = 0; i < 8; i++) {
+        const angle = (i / 8) * Math.PI * 2 + rotT;
+        const rx = majorR * Math.cos(angle);
+        const ry = majorR * Math.sin(angle) * 0.4;
+        const tx = rx + 8 * Math.cos(angle + Math.PI / 2);
+        const ty = ry + 8 * Math.sin(angle + Math.PI / 2) * 0.4;
+        ctx.strokeStyle = 'rgba(100,255,150,0.4)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(rx, ry); ctx.lineTo(tx, ty); ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawTiltedDipoleField(cx, cy, scale, alpha, tiltAngle, numLines, color) {
+    ctx.save(); ctx.translate(cx, cy); ctx.rotate(tiltAngle); ctx.globalAlpha = alpha;
+    drawSymmetricDipoleLines(0, 0, scale * 1.5, 1.0, numLines, color, false);
+    ctx.restore();
+  }
+
+  function drawSolarWindEffect(cx, cy, scale, alpha, pressure) {
+    ctx.save(); ctx.translate(cx, cy); ctx.globalAlpha = alpha;
+    const compression = 1 - pressure * 0.3;
+    ctx.strokeStyle = 'rgba(255,100,50,0.3)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.ellipse(scale * 0.3, 0, scale * compression, scale * 0.8, 0, -Math.PI / 2, Math.PI / 2); ctx.stroke();
+    const elongation = 1 + pressure * 0.5;
+    ctx.beginPath(); ctx.moveTo(0, -scale * 0.6); ctx.lineTo(-scale * elongation, -scale * 0.3); ctx.lineTo(-scale * elongation, scale * 0.3); ctx.lineTo(0, scale * 0.6); ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawEarthBody(cx, cy, scale, alpha) {
+    ctx.save(); ctx.translate(cx, cy); ctx.globalAlpha = alpha;
+    ctx.fillStyle = "#1a3a6a"; ctx.beginPath(); ctx.arc(0, 0, scale * 0.18, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = "#4488ff"; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.strokeStyle = 'rgba(100,150,255,0.25)'; ctx.lineWidth = 0.5;
+    for (let lat = -60; lat <= 60; lat += 30) {
+      const r = scale * 0.18 * Math.cos(lat * Math.PI / 180);
+      const y = scale * 0.18 * Math.sin(lat * Math.PI / 180);
+      ctx.beginPath(); ctx.ellipse(0, y, r, r * 0.3, 0, 0, Math.PI * 2); ctx.stroke();
+    }
+    ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+    ctx.beginPath(); ctx.moveTo(0, -scale * 0.22); ctx.lineTo(0, scale * 0.22); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+
+  function drawQuaternionicDipoleLines(B, scale, alpha) {
+    const numLines = 16;
+    for (let i = 0; i < numLines; i++) {
+      const theta0 = (i / numLines) * Math.PI * 0.48 + 0.02;
+      const r0 = 2 * scale;
+      ctx.beginPath(); ctx.strokeStyle = 'rgba(68,136,255,' + (alpha * 0.5) + ')'; ctx.lineWidth = 0.6;
+      let r = r0, theta = theta0;
+      for (let step = 0; step < 200; step++) {
+        const br = Math.sqrt(B.x * B.x + B.y * B.y + B.z * B.z) + 1e-10;
+        const dr = (B.x / br) * scale * 0.02;
+        const dtheta = (B.y / br) * 0.02;
+        r += dr; theta += dtheta;
+        const x = r * Math.sin(theta); const y = -r * Math.cos(theta);
+        if (step === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        if (r > 10 * scale) break;
+      }
+      ctx.stroke();
+    }
+  }
+
+  function drawQuaternionicToroidalField(B, scale, alpha) {
+    const rings = 8;
+    for (let i = 0; i < rings; i++) {
+      const theta = (i / rings) * Math.PI * 2;
+      const r = scale * 0.6 + 0.2 * scale * Math.sin(theta);
+      ctx.beginPath(); ctx.strokeStyle = 'rgba(100,200,255,' + (alpha * 0.3) + ')'; ctx.lineWidth = 0.5;
+      for (let j = 0; j <= 100; j++) {
+        const phi = (j / 100) * Math.PI * 2;
+        const x = r * Math.cos(theta + phi * 0.1);
+        const y = r * Math.sin(theta + phi * 0.1);
+        if (j === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+  }
+
+  function drawSceneWithDT(cx, cy, scale, alpha, phase) {
+    ctx.save(); ctx.translate(cx, cy);
+    const Psi = dtModel.computeState(3 * dtModel.R_E, 2 * dtModel.R_E, 1 * dtModel.R_E);
+    drawQuaternionicDipoleLines(Psi.B_dip, scale, alpha);
+    drawQuaternionicToroidalField(Psi.B_tor, scale, alpha);
+    const magnitude = dtModel.getScalarMagnitude(Psi);
+    const magSq = dtModel.getScalarMagnitudeSq(Psi);
+    const coherence = dtModel.getCoherence();
+    ctx.fillStyle = 'rgba(200,160,78,' + (alpha * 0.3) + ')';
+    ctx.font = "10px monospace"; ctx.textAlign = "center";
+    ctx.fillText('MGDH: ‖Ψ‖² = ' + magSq.toFixed(2), 0, -scale * 2.0);
+    ctx.fillStyle = 'rgba(255,215,0,' + (alpha * 0.5) + ')';
+    ctx.font = "8px monospace";
+    ctx.fillText('Coherence: ' + (coherence * 100).toFixed(1) + '%', 0, -scale * 2.0 + 16);
+    ctx.fillStyle = 'rgba(200,160,78,' + (alpha * 0.3) + ')';
+    ctx.font = "8px monospace";
+    ctx.fillText('𝔐·∇·Ψ = ' + (magSq / (PHI + 0.001)).toFixed(2), 0, -scale * 2.0 + 32);
+    if (view === '4d-scalar') draw4DScalarField(0, 0, scale * 1.2, alpha * 0.7);
+    if (view === 'wild-torus') drawWildTorus(0, 0, scale * 0.8, alpha * 0.8);
+    ctx.restore();
+  }
+
+  function drawScene0_void(u) {
+    ctx.save(); ctx.translate(w / 2, h / 2);
+    const R = lerp(120, 60, u); const eggAlpha = 1 - u * 0.5;
+    ctx.globalAlpha = eggAlpha;
+    const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, R);
+    grad.addColorStop(0, 'rgba(200,160,78,0.3)'); grad.addColorStop(0.5, 'rgba(100,80,40,0.1)'); grad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(0, 0, R, 0, Math.PI * 2); ctx.fill();
+    if (view === '4d-scalar') draw4DScalarField(0, 0, R * 0.6, 0.5);
+    if (view === 'wild-torus') drawWildTorus(0, 0, R * 0.5, 0.3);
+    ctx.restore();
+  }
+
+  function drawScene1_mitosis(u) {
+    ctx.save(); ctx.translate(w / 2, h / 2); const split = u; const offset = lerp(0, 50, split);
+    [-1, 1].forEach(side => {
+      ctx.globalAlpha = 0.5 + split * 0.5;
+      const grad = ctx.createRadialGradient(side * offset, 0, 0, side * offset, 0, 80);
+      grad.addColorStop(0, 'rgba(200,160,78,0.4)'); grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(side * offset, 0, 80, 0, Math.PI * 2); ctx.fill();
+    });
+    if (view === '4d-scalar') draw4DScalarField(0, 0, 100, 0.4);
+    if (view === 'wild-torus') drawWildTorus(0, 0, 70, 0.3);
+    ctx.restore();
+  }
+
+  function drawScene2_emergence(u) {
+    ctx.save(); ctx.translate(w / 2, h / 2);
+    const scale = lerp(80, 160, u); const alpha = lerp(0.3, 1.0, u);
+    drawSymmetricDipoleLines(0, 0, scale * 1.5, alpha * 0.7, 20, "#4488ff", true);
+    const tilt = STAGE.tilted ? GEOMAGNETIC_TILT * Math.sin(t * 0.1) : 0;
+    drawTorusPlasmasphere(0, 0, scale * 0.85, alpha, tilt);
+    drawEarthBody(0, 0, scale, alpha);
+    if (view === '4d-scalar') draw4DScalarField(0, 0, scale * 0.8, alpha * 0.5);
+    if (view === 'wild-torus') drawWildTorus(0, 0, scale * 0.7, alpha * 0.5);
+    if (u > 0.5) {
+      ctx.fillStyle = 'rgba(200,160,78,' + ((u - 0.5) / 0.5 * 0.8) + ')';
+      ctx.font = "10px monospace"; ctx.textAlign = "center";
+      ctx.fillText("⊕ EARTH", 0, scale * 0.32);
+      ctx.fillText("PLASMASPHERE", 0, -scale * 0.6);
+      ctx.fillText("MAGNETIC DIPOLE", 0, -scale * 1.6);
+    }
+    ctx.globalAlpha = 1; ctx.restore();
+  }
+
+  function drawScene3_decay(u) {
+    ctx.save(); ctx.translate(w / 2, h / 2);
+    const scale = lerp(100, 180, u); const alpha = lerp(0.4, 1.0, u);
+    const tilt = GEOMAGNETIC_TILT * (0.5 + 0.5 * Math.sin(t * 0.08));
+    drawTiltedDipoleField(0, 0, scale * 1.5, alpha * 0.7, tilt, 20, "#4488ff");
+    drawTorusPlasmasphere(0, 0, scale * 0.85, alpha, tilt);
+    if (STAGE.solarWind) {
+      const pressure = clamp((spaceWeather.swSpeed - 300) / 500, 0, 1);
+      drawSolarWindEffect(0, 0, scale, alpha * 0.5, pressure);
+    }
+    drawEarthBody(0, 0, scale, alpha);
+    if (view === '4d-scalar') draw4DScalarField(0, 0, scale * 0.9, alpha * 0.4);
+    if (view === 'wild-torus') drawWildTorus(0, 0, scale * 0.8, alpha * 0.5);
+    const heartScale = lerp(0.8, 1.2, u);
+    ctx.strokeStyle = 'rgba(255,51,102,' + lerp(0.3, 0.7, u) + ')'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (let i = 0; i <= 100; i++) { const a = (i / 100) * Math.PI * 2; const r = heartScale * 50 * (1 - Math.sin(a)); const x = r * Math.cos(a); const y = -r * Math.sin(a) * 0.8; if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); }
+    ctx.closePath(); ctx.stroke();
+    ctx.globalAlpha = 1; ctx.restore();
+  }
+
+  function drawScene4_integration(u) {
+    ctx.save(); ctx.translate(w / 2, h / 2);
+    const scale = lerp(120, 220, u); const alpha = lerp(0.5, 1.0, u);
+    drawSceneWithDT(0, 0, scale, alpha, u);
+    drawSymmetricDipoleLines(0, 0, scale, alpha * 0.6, 16, "#ff8800", true);
+    drawSymmetricDipoleLines(0, 0, scale * 0.6, alpha * 0.3, 10, "#c8a04e", false);
+    drawSymmetricDipoleLines(0, 0, scale * 1.3, alpha * 0.2, 8, "#66ccff", false);
+    const tilt = STAGE.tilted ? GEOMAGNETIC_TILT * Math.sin(t * 0.1) : 0;
+    drawTorusPlasmasphere(0, 0, scale * 0.8, alpha, tilt);
+    if (STAGE.solarWind) {
+      const pressure = clamp((spaceWeather.swSpeed - 300) / 500, 0, 1);
+      drawSolarWindEffect(0, 0, scale, alpha * 0.4, pressure);
+    }
+    drawEarthBody(0, 0, scale, alpha);
+    drawWildTorus(0, 0, scale * 0.6, alpha * 0.6);
+    const scales = [
+      { r: 25, color: "#66ccff", label: "Atom" },
+      { r: 55, color: "#ff3366", label: "Cell" },
+      { r: 95, color: "#33ff99", label: "Earth" },
+      { r: 150, color: "#c8a04e", label: "Magnetosphere" }
+    ];
+    ctx.font = "11px sans-serif"; ctx.textAlign = "center";
+    scales.forEach(s => {
+      ctx.strokeStyle = s.color; ctx.beginPath(); ctx.arc(0, 0, s.r, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = s.color; ctx.fillText(s.label, 0, -s.r - 10);
+    });
+    const mgdhRingR = scale + 55;
+    ctx.strokeStyle = 'rgba(255,215,0,' + (alpha * 0.15) + ')'; ctx.lineWidth = 1; ctx.setLineDash([2, 4]);
+    ctx.beginPath(); ctx.arc(0, 0, mgdhRingR, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(255,215,0,' + (alpha * 0.5) + ')'; ctx.font = "8px monospace";
+    const mgdhText = '4D MGDH: ℒ = ||Ψ||² − 𝔐·∇·Ψ + Φ·Ψ  |  𝔐 = ' + PHI.toFixed(6);
+    for (let i = 0; i < mgdhText.length; i++) {
+      const angle = (i / mgdhText.length) * Math.PI * 2 - Math.PI / 2 + t * 0.06;
+      ctx.save(); ctx.translate(Math.cos(angle) * mgdhRingR, Math.sin(angle) * mgdhRingR);
+      ctx.rotate(angle + Math.PI / 2); ctx.fillText(mgdhText[i], 0, 0); ctx.restore();
+    }
+    const scalar4dRingR = scale + 75;
+    ctx.strokeStyle = 'rgba(100,200,255,' + (alpha * 0.1) + ')'; ctx.lineWidth = 0.5; ctx.setLineDash([2, 6]);
+    ctx.beginPath(); ctx.arc(0, 0, scalar4dRingR, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(100,200,255,' + (alpha * 0.3) + ')'; ctx.font = "7px monospace";
+    const scalar4dText = '∂Ψ/∂t + 𝔐·∇·Ψ = ||Ψ||²  |  Ψ(x,y,z,t) = ρ + u + p + T + e';
+    for (let i = 0; i < scalar4dText.length; i++) {
+      const angle = (i / scalar4dText.length) * Math.PI * 2 - Math.PI / 2 + t * 0.08;
+      ctx.save(); ctx.translate(Math.cos(angle) * scalar4dRingR, Math.sin(angle) * scalar4dRingR);
+      ctx.rotate(angle + Math.PI / 2); ctx.fillText(scalar4dText[i], 0, 0); ctx.restore();
+    }
+    const wildRingR = scale + 95;
+    ctx.strokeStyle = 'rgba(255,107,107,' + (alpha * 0.15) + ')'; ctx.lineWidth = 1; ctx.setLineDash([2, 4]);
+    ctx.beginPath(); ctx.arc(0, 0, wildRingR, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(255,107,107,' + (alpha * 0.4) + ')'; ctx.font = "7px monospace";
+    const wildText = '▣ Wild Tetrahedra: Perfect Chains → Toroidal Polyhedra  |  14-chain minimal';
+    for (let i = 0; i < wildText.length; i++) {
+      const angle = (i / wildText.length) * Math.PI * 2 - Math.PI / 2 + t * 0.05;
+      ctx.save(); ctx.translate(Math.cos(angle) * wildRingR, Math.sin(angle) * wildRingR);
+      ctx.rotate(angle + Math.PI / 2); ctx.fillText(wildText[i], 0, 0); ctx.restore();
+    }
+    const dataRingR = scale + 35;
+    ctx.strokeStyle = 'rgba(200,160,78,' + (alpha * 0.25) + ')'; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+    ctx.beginPath(); ctx.arc(0, 0, dataRingR, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(200,160,78,' + (alpha * 0.6) + ')'; ctx.font = "9px monospace";
+    const liveText = 'Kp=' + spaceWeather.kp.toFixed(1) + ' AE=' + spaceWeather.ae + ' Dst=' + spaceWeather.dst + ' Bz=' + spaceWeather.bz.toFixed(1) + ' SW=' + spaceWeather.swSpeed.toFixed(0);
+    for (let i = 0; i < liveText.length; i++) {
+      const angle = (i / liveText.length) * Math.PI * 2 - Math.PI / 2 + t * 0.08;
+      ctx.save(); ctx.translate(Math.cos(angle) * dataRingR, Math.sin(angle) * dataRingR);
+      ctx.rotate(angle + Math.PI / 2); ctx.fillText(liveText[i], 0, 0); ctx.restore();
+    }
+    ctx.fillStyle = "rgba(255,255,255,0.25)"; ctx.font = "9px monospace";
+    const text = "AS ABOVE · SO BELOW · 𝔐 = " + PHI.toFixed(6);
+    for (let i = 0; i < text.length; i++) {
+      const angle = (i / text.length) * Math.PI * 2 - Math.PI / 2 + t * 0.12;
+      ctx.save(); ctx.translate(Math.cos(angle) * (scale + 60), Math.sin(angle) * (scale + 60));
+      ctx.rotate(angle + Math.PI / 2); ctx.fillText(text[i], 0, 0); ctx.restore();
+    }
+    ctx.globalAlpha = 1; ctx.restore();
+  }
+
+  function getPhaseIndex(cycleT) {
+    if (cycleT < 0.15) return 0;
+    if (cycleT < 0.30) return 1;
+    if (cycleT < 0.55) return 2;
+    if (cycleT < 0.80) return 3;
+    return 4;
+  }
+
+  function renderFrame(timestamp) {
+    if (lastFrameTime) {
+      const delta = timestamp - lastFrameTime;
+      frameCount++;
+      if (frameCount % 30 === 0) { fps = Math.round(1000 / delta); fpsText.textContent = fps + ' fps'; }
+    }
+    lastFrameTime = timestamp;
+    ctx.fillStyle = "#000"; ctx.fillRect(0, 0, w, h);
+    const cycleT = auto ? ((t * 0.05) % 1) : (manualT / 1000);
+    drawStarsField(1, Math.sin(cycleT * Math.PI * 2) * 0.3);
+    const phaseIdx = getPhaseIndex(cycleT);
+    const phase = phases[phaseIdx];
+    titleEl.textContent = phase.name;
+    phaseEl.innerHTML = phase.sub + "<br>cycle position: " + (cycleT * 100).toFixed(1) + "%<br><span style='color:#ffd700;font-size:9px;'>4D MGDH Complete · Wild Torus</span>";
+    phases.forEach((p, i) => {
+      const dot = document.getElementById('sp-dot-' + i);
+      if (dot) {
+        dot.classList.toggle('sp-active', Math.abs(cycleT - p.t) < 0.08);
+        dot.classList.toggle('sp-wild-active', i === 4 && view === 'wild-torus');
+      }
+    });
+    let w0, w1, w2, w3, w4;
+    if (view === 'cosmic') {
+      w0 = smoothstep(0.0, 0.15, cycleT) * (1 - smoothstep(0.15, 0.25, cycleT));
+      w1 = smoothstep(0.15, 0.25, cycleT) * (1 - smoothstep(0.30, 0.40, cycleT));
+      w2 = smoothstep(0.30, 0.40, cycleT) * (1 - smoothstep(0.55, 0.65, cycleT));
+      w3 = smoothstep(0.55, 0.65, cycleT) * (1 - smoothstep(0.80, 0.90, cycleT));
+      w4 = smoothstep(0.80, 0.90, cycleT);
+    } else if (view === 'plasma') {
+      w0 = 0;
+      w1 = smoothstep(0.15, 0.25, cycleT) * (1 - smoothstep(0.30, 0.40, cycleT)) * 0.3;
+      w2 = smoothstep(0.30, 0.40, cycleT) * (1 - smoothstep(0.55, 0.65, cycleT));
+      w3 = smoothstep(0.55, 0.65, cycleT) * (1 - smoothstep(0.80, 0.90, cycleT)) * 0.3;
+      w4 = smoothstep(0.80, 0.90, cycleT);
+    } else if (view === '4d-scalar') {
+      w0 = smoothstep(0.0, 0.15, cycleT) * (1 - smoothstep(0.15, 0.25, cycleT)) * 0.5;
+      w1 = smoothstep(0.15, 0.25, cycleT) * (1 - smoothstep(0.30, 0.40, cycleT)) * 0.7;
+      w2 = smoothstep(0.30, 0.40, cycleT) * (1 - smoothstep(0.55, 0.65, cycleT));
+      w3 = smoothstep(0.55, 0.65, cycleT) * (1 - smoothstep(0.80, 0.90, cycleT)) * 0.7;
+      w4 = smoothstep(0.80, 0.90, cycleT) * (1 - smoothstep(0.95, 1.0, cycleT)) * 0.5;
+    } else if (view === 'wild-torus') {
+      w0 = smoothstep(0.0, 0.15, cycleT) * (1 - smoothstep(0.15, 0.25, cycleT)) * 0.3;
+      w1 = smoothstep(0.15, 0.25, cycleT) * (1 - smoothstep(0.30, 0.40, cycleT)) * 0.3;
+      w2 = smoothstep(0.30, 0.40, cycleT) * (1 - smoothstep(0.55, 0.65, cycleT)) * 0.5;
+      w3 = smoothstep(0.55, 0.65, cycleT) * (1 - smoothstep(0.80, 0.90, cycleT)) * 0.5;
+      w4 = smoothstep(0.80, 0.90, cycleT) * (1 - smoothstep(0.95, 1.0, cycleT));
+    } else {
+      w0 = smoothstep(0.0, 0.15, cycleT) * (1 - smoothstep(0.15, 0.25, cycleT));
+      w1 = smoothstep(0.15, 0.25, cycleT) * (1 - smoothstep(0.30, 0.40, cycleT));
+      w2 = smoothstep(0.30, 0.40, cycleT) * (1 - smoothstep(0.55, 0.65, cycleT));
+      w3 = smoothstep(0.55, 0.65, cycleT) * (1 - smoothstep(0.80, 0.90, cycleT));
+      w4 = smoothstep(0.80, 0.90, cycleT) * (1 - smoothstep(0.95, 1.0, cycleT));
+    }
+    const total = w0 + w1 + w2 + w3 + w4;
+    const nw0 = w0 / (total || 1), nw1 = w1 / (total || 1), nw2 = w2 / (total || 1), nw3 = w3 / (total || 1), nw4 = w4 / (total || 1);
+    ctx.globalAlpha = nw0; if (nw0 > 0.01) drawScene0_void(cycleT / 0.25);
+    ctx.globalAlpha = nw1; if (nw1 > 0.01) drawScene1_mitosis((cycleT - 0.15) / 0.25);
+    ctx.globalAlpha = nw2; if (nw2 > 0.01) drawScene2_emergence((cycleT - 0.40) / 0.25);
+    ctx.globalAlpha = nw3; if (nw3 > 0.01) drawScene3_decay((cycleT - 0.65) / 0.25);
+    ctx.globalAlpha = nw4; if (nw4 > 0.01) drawScene4_integration((cycleT - 0.90) / 0.10);
+    ctx.globalAlpha = 1;
+    if (auto) slider.value = Math.round(cycleT * 1000);
+  }
+
+  function animationLoop(timestamp) {
+    t += 0.016;
+    renderFrame(timestamp);
+    requestAnimationFrame(animationLoop);
+  }
+
+  btnPlay.addEventListener('click', () => { auto = !auto; btnPlay.textContent = auto ? "⏸ pause" : "▶ play"; });
+  slider.addEventListener('input', () => { auto = false; manualT = parseInt(slider.value); btnPlay.textContent = "▶ play"; });
+  btnPrev.addEventListener('click', () => { auto = false; manualT = Math.max(0, manualT - 100); slider.value = manualT; btnPlay.textContent = "▶ play"; });
+  btnNext.addEventListener('click', () => { auto = false; manualT = Math.min(1000, manualT + 100); slider.value = manualT; btnPlay.textContent = "▶ play"; });
+  viewMode.addEventListener('change', (e) => { view = e.target.value; });
+  phases.forEach((p, i) => {
+    const dot = document.getElementById('sp-dot-' + i);
+    if (dot) {
+      dot.style.cursor = 'pointer';
+      dot.addEventListener('click', () => { auto = false; manualT = Math.round(p.t * 1000); slider.value = manualT; btnPlay.textContent = "▶ play"; });
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') { e.preventDefault(); btnPlay.click(); }
+    else if (e.code === 'ArrowLeft') { btnPrev.click(); }
+    else if (e.code === 'ArrowRight') { btnNext.click(); }
+  });
+
+  const STAGE = { tilted: true, solarWind: true };
+
+  requestAnimationFrame(animationLoop);
+  fetchNOAAData();
+  setInterval(fetchNOAAData, 300000);
+
+  console.log('%c[Scalar-Plasma Cycle v5.1 — 4D MGDH Complete · De Pretto\'s Aether]', 'color: #ffd700; font-weight: bold;');
+  console.log('%cMacachor Absolute Scalar Lock: M = ' + PHI_FULL, 'color: #c8a04e;');
+  console.log('%cMGDH Lagrangian: ℒ = ||Ψ||² − M·∇·Ψ + Φ·Ψ', 'color: #ffd700;');
+  console.log('%c4D Scalar Field: Ψ(x,y,z,t) = ρ + u + p + T + e', 'color: #4e8ac8;');
+  console.log('%c4D Coherence: ∂Ψ/∂t + M·∇·Ψ = ||Ψ||²', 'color: #4e8ac8;');
+  console.log('%cWild Tetrahedra: Perfect Chains → Toroidal Polyhedra (Akpanya et al. 2024)', 'color: #ff6b6b;');
+  console.log('%cScalar Accuracy: 50+ decimal places', 'color: #4ec88a;');
+  console.log('%cΩ-Gateway: Global Coherence API', 'color: #4a9eff;');
+  console.log('%c◈ THE QUANTUM PLAYBOOK: https://christophermacachor.github.io/THE-QUANTUM-PLAYBOOK/', 'color: #ffd700;');
+  console.log('%c📄 arXiv:2411.14924 — Construction of Toroidal Polyhedra from perfect Chains of wild Tetrahedra', 'color: #ff6b6b;');
+})();
+</script>
+
+</body>
+</html>
