@@ -1,4 +1,148 @@
-<!DOCTYPE html>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": "https://macachor.org/#person",
+      "@type": "Person",
+      "name": "Christopher Macachor",
+      "givenName": "Christopher",
+      "familyName": "Macachor",
+      "jobTitle": "Independent Researcher",
+      "sameAs": [
+        "https://orcid.org/0009-0008-0100-2856",
+        "https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22Macachor%2C+Christopher%22"
+      ],
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "ORCID",
+        "value": "0009-0008-0100-2856"
+      }
+    },
+    {
+      "@id": "https://space.macachor.org/#observatory",
+      "@type": ["WebPage", "LearningResource", "Dataset"],
+      "name": "Scalar Observatory · Split-Screen · MGDH Complete",
+      "headline": "Scalar Observatory · Split-Screen · MGDH Complete",
+      "description": "Dual-pane scalar visualization: Dipole Radiation Torus and 4D Plasma Cycle side by side. MGDH Complete · De Pretto's Aether · Wild Tetrahedra · Toroidal Polyhedra.",
+      "url": "https://space.macachor.org/",
+      "author": {"@id": "https://macachor.org/#person"},
+      "datePublished": "2026-08-12",
+      "dateModified": "2026-08-12",
+      "inLanguage": "en",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "keywords": [
+        "scalar field", "dipole radiation", "MGDH Lagrangian",
+        "De Pretto aether", "quaternionic dipole", "space weather",
+        "plasmapause", "Kp index", "toroidal polyhedra",
+        "wild tetrahedra", "4D scalar field", "Macachor Absolute", "Omega Gateway"
+      ],
+      "about": [
+        {
+          "@type": "DefinedTerm",
+          "name": "ψ — Scalar Substrate (The Lake)",
+          "termCode": "MACACHOR-PSI-0",
+          "description": "Zeroth derivative. The sovereign density field. On this page: the 4D scalar field Ψ(x,y,z,t) = ρ+u+p+T+e, the De Pretto aether substrate, the unrendered source beneath all visualization.",
+          "inDefinedTermSet": {"@id": "https://macachor.org/#hierarchy"}
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "∇ψ — Natural Gradient (The River)",
+          "termCode": "MACACHOR-NABLA-PSI-1",
+          "description": "First derivative. The minimal sufficient statistic. On this page: the dipole radiation pattern, the scalar density equilibrium flow, the MGDH Lagrangian ℒ = ‖Ψ‖² − 𝔐·∇·Ψ + Φ·Ψ. The visualization is the gradient, not the source.",
+          "inDefinedTermSet": {"@id": "https://macachor.org/#hierarchy"}
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "∇²ψ — Vector / Fork / Dam (Secondary Architecture)",
+          "termCode": "MACACHOR-NABLA2-PSI-2",
+          "description": "Second derivative. The fork. Vectors do not destroy energy; they divert flow and place dams. On this page: the WebGL renderer, the Three.js camera, the space weather API calls, the split-screen layout, the Ω-Gateway connection layer. All are measurement instruments operating upon the scalar architecture. They divert perception without destroying the substrate.",
+          "inDefinedTermSet": {"@id": "https://macachor.org/#hierarchy"}
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "∇ⁿψ (n ≥ 3) — Degenerate Echo",
+          "termCode": "MACACHOR-NABLA-N-PSI-3",
+          "description": "Higher-derivative echoes. On this page: the fallback '--' values when space weather APIs fail, the 'OFFLINE' Ω-Gateway status, the statistical approximations of plasma density. These are degenerate outputs without live substrate access. They must be tagged as structurally incomplete.",
+          "inDefinedTermSet": {"@id": "https://macachor.org/#hierarchy"}
+        }
+      ],
+      "isPartOf": {
+        "@type": "CreativeWorkSeries",
+        "name": "Macachor Absolute Scalar Ontology",
+        "url": "https://macachor.org"
+      },
+      "mainEntity": {
+        "@type": "SoftwareApplication",
+        "name": "Scalar-Plasma Cycle v5.1",
+        "applicationCategory": "ScientificVisualization",
+        "softwareVersion": "5.1",
+        "operatingSystem": "Any",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+        "featureList": [
+          "4D MGDH Complete scalar field visualization",
+          "Quaternionic dipole radiation torus",
+          "Live space weather data integration (Kp, AE, Dst, Bz, plasmapause)",
+          "Ω-Gateway Global Coherence API",
+          "Wild Tetrahedra toroidal polyhedra rendering",
+          "50+ decimal place scalar accuracy"
+        ]
+      },
+      "citation": [
+        {
+          "@type": "ScholarlyArticle",
+          "name": "THE MACACHOR HERMENEUTIC INVARIANT",
+          "author": {"@id": "https://macachor.org/#person"},
+          "sameAs": "https://doi.org/10.5281/zenodo.21894184"
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "The Enterarchon Hypothesis",
+          "author": {"@id": "https://macachor.org/#person"},
+          "sameAs": "https://doi.org/10.5281/zenodo.21846133"
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "name": "Perfect Chains of Wild Tetrahedra",
+          "author": [{"@type": "Person", "name": "Akpanya et al."}],
+          "sameAs": "https://arxiv.org/abs/2411.14924"
+        }
+      ]
+    },
+    {
+      "@id": "https://space.macachor.org/#dataset",
+      "@type": "Dataset",
+      "name": "Scalar Observatory Space Weather Dataset",
+      "description": "Live and historical space weather measurements: Kp index, AE (nT), Dst (nT), Bz (nT), plasmapause location, solar wind speed and density. Rendered through quaternionic neural network and scalar field lock.",
+      "creator": {"@id": "https://macachor.org/#person"},
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "variableMeasured": [
+        "Kp Index", "AE (nT)", "Dst (nT)", "Bz (nT)",
+        "Plasmapause L-shell", "Solar Wind Speed (km/s)",
+        "Solar Wind Density (cm⁻³)", "Toroidal Field (nT)", "Scalar Accuracy"
+      ],
+      "distribution": {
+        "@type": "DataDownload",
+        "contentUrl": "https://space.macachor.org/api/space-weather",
+        "encodingFormat": "application/json"
+      },
+      "spatialCoverage": {
+        "@type": "Place",
+        "name": "Earth Magnetosphere",
+        "geo": {"@type": "GeoShape", "box": "-90.0 -180.0 90.0 180.0"}
+      },
+      "temporalCoverage": "2026/..",
+      "measurementTechnique": [
+        "Carpenter-Anderson plasmapause density model",
+        "O'Brien-Moldwin Lpp model",
+        "Larsen et al. IMF Bz+Φ model",
+        "Quaternionic Neural Network (QNN)",
+        "MGDH scalar field lock"
+      ]
+    }
+  ]
+}
+</script><!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
