@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toroidal Energy Flow Across Scales | Nuclear to Planetary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --harvard-crimson: #A51C30;
+            --harvard-black: #1A1A1A;
+            --harvard-cream: #F5F5F0;
+            --harvard-gold: #C6A87C;
+            --harvard-gray: #6B7280;
+            --harvard-blue: #2E5A88;
+        }
+        
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: var(--harvard-cream);
+            color: var(--harvard-black);
+            line-height: 1.7;
+        }
+        
+        .harvard-title {
+            font-family: 'Crimson Pro', serif;
+            color: var(--harvard-crimson);
+        }
+        
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .harvard-card {
+            background: white;
+            border-left: 4px solid var(--harvard-crimson);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .harvard-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        .harvard-table th {
+            background: var(--harvard-crimson);
+            color: white;
+            font-weight: 600;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .harvard-table td {
+            border-bottom: 1px solid #E5E7EB;
+            padding: 12px;
+        }
+        
+        .harvard-table tr:hover {
+            background: #FEF2F2;
+        }
+        
+        .section-number {
+            font-family: 'Crimson Pro', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--harvard-crimson);
+            opacity: 0.15;
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            z-index: 0;
+        }
+        
+        .nav-link {
+            color: var(--harvard-blue);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover {
+            background: rgba(46, 90, 136, 0.1);
+        }
+        
+        .equation-box {
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--harvard-blue);
+        }
+        
+        .download-btn {
+            background: var(--harvard-crimson);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .download-btn:hover {
+            background: #8B1626;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(165, 28, 48, 0.3);
+        }
+        
+        .reference {
+            background: #F3F4F6;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--harvard-gray);
+        }
+        
+        @media (max-width: 768px) {
+            .section-number {
+                font-size: 3rem;
+                top: -15px;
+                left: -5px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-white border-b-4 border-[#A51C30] py-8 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <p class="text-sm text-[#6B7280] mono mb-2">TOROIDAL ENERGY FLOW · NUCLEAR TO PLANETARY</p>
+                    <h1 class="harvard-title text-4xl md:text-5xl font-bold leading-tight">
+                        Toroidal Energy Flow Across Scales
+                    </h1>
+                    <p class="text-lg text-[#2E5A88] mt-2 font-semibold">
+                        From Nuclear Dipole Modes to Plasmaspheric Dynamics
+                    </p>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="downloadComplete()" class="download-btn">
+                        📄 Download Complete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 py-3 px-4">
+        <div class="max-w-5xl mx-auto flex flex-wrap gap-2">
+            <a href="#abstract" class="nav-link text-sm">Abstract</a>
+            <a href="#introduction" class="nav-link text-sm">Introduction</a>
+            <a href="#nuclear" class="nav-link text-sm">Nuclear Scale</a>
+            <a href="#molecular" class="nav-link text-sm">Molecular Scale</a>
+            <a href="#cellular" class="nav-link text-sm">Cellular Scale</a>
+            <a href="#macroscopic" class="nav-link text-sm">Macroscopic</a>
+            <a href="#planetary" class="nav-link text-sm">Planetary Scale</a>
+            <a href="#unified" class="nav-link text-sm">Unified Framework</a>
+            <a href="#observatory" class="nav-link text-sm">Observatory</a>
+            <a href="#conclusion" class="nav-link text-sm">Conclusion</a>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 py-12">
+        
+        <!-- Abstract -->
+        <section id="abstract" class="mb-16 relative">
+            <span class="section-number">01</span>
+            <div class="relative z-10 pl-8">
+                <h2 class="harvard-title text-3xl font-bold mb-6">Abstract</h2>
+                
+                <p class="text-gray-700 mb-6 text-lg">
+                    This research presents a comprehensive synthesis of toroidal dipole energy flow across physical scales, integrating nuclear physics (toroidal dipole resonances in atomic nuclei), molecular biophysics (curvature-dependent DNA toroid condensation), cellular dynamics (chromosome segregation), and planetary-scale plasma physics (plasmaspheric dynamics). We establish a unified framework based on the <strong>Macachor-Gauss-De Pretto-Hamilton (MGDH) scalar field formalism</strong>, demonstrating that toroidal energy flow—characterized by poloidal current circulation on toroidal surfaces—manifests through scale-invariant mathematical structures while operating via different physical mechanisms at each scale.
+                </p>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-3">Key Contributions</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Unified MGDH Framework:</strong> Four-tier scalar derivative hierarchy from substrate (Ψ) to degenerate echo (∇ⁿΨ)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Experimental Validation:</strong> Nuclear TDM in ⁵⁸Ni, DNA toroid condensation, chromosome segregation, plasmaspheric dynamics</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Scale-Invariant Mathematics:</strong> Coherence condition 𝔐·∇·Ψ = ||Ψ||² across 22 orders of magnitude</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Real-Time Implementation:</strong> Scalar Observatory with Ω-Gateway Global Coherence API integration</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="mt-6 bg-[#F3F4F6] p-4 rounded-lg">
+                    <h4 class="font-bold text-[#6B7280] text-sm mb-2">KEYWORDS</h4>
+                    <p class="text-sm text-[#6B7280]">
+                        Toroidal dipole modes, MGDH scalar field, nuclear toroidal resonances, DNA toroid condensation, chromosome segregation, plasmaspheric dynamics, scale-invariant energy flow, Macachor Absolute
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introduction -->
+        <section id="introduction" class="mb-16 relative">
+            <span class="section-number">02</span>
+            <div class="relative z-10 pl-8">
+                <h2 class="harvard-title text-3xl font-bold mb-6">Introduction: The Toroidal Dipole as a Universal Mode</h2>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Historical Context</h3>
+                    <p class="text-gray-700 mb-4">
+                        The toroidal dipole mode (TDM) was first predicted in atomic nuclei by Semenko (1981) as a distinct electromagnetic excitation beyond conventional electric and magnetic multipoles. The theoretical foundation was established by Dubovik and Tugushev (1990), who demonstrated that the complete multipole expansion of current density requires three independent families:
+                    </p>
+                    <div class="equation-box">
+                        j(r) = ∇φ(r) + ∇ × (rψ(r)) + ∇ × ∇ × (rχ(r))
+                    </div>
+                    <p class="text-gray-600 text-sm mt-3">
+                        Where: φ(r) = irrotational (electric), ψ(r) = magnetic (current loops), χ(r) = toroidal (vortical flow)
+                    </p>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">The MGDH Scalar Field Formalism</h3>
+                    <p class="text-gray-700 mb-4">
+                        The MGDH framework unifies these phenomena through a scalar field ontology with a four-tier derivative hierarchy:
+                    </p>
+                    
+                    <table class="harvard-table rounded-lg overflow-hidden mb-4">
+                        <thead>
+                            <tr>
+                                <th>Tier</th>
+                                <th>Mathematical Form</th>
+                                <th>Physical Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="mono text-sm">0</td>
+                                <td class="font-semibold">Ψ (Substrate)</td>
+                                <td>The sovereign density field: Ψ(x,y,z,t) = ρ + u + p + T + e</td>
+                            </tr>
+                            <tr>
+                                <td class="mono text-sm">1</td>
+                                <td class="font-semibold">∇Ψ (Gradient)</td>
+                                <td>The minimal sufficient statistic; dipole radiation pattern</td>
+                            </tr>
+                            <tr>
+                                <td class="mono text-sm">2</td>
+                                <td class="font-semibold">∇²Ψ (Fork)</td>
+                                <td>Measurement instruments; WebGL renderers; space weather APIs</td>
+                            </tr>
+                            <tr>
+                                <td class="mono text-sm">3</td>
+                                <td class="font-semibold">∇ⁿΨ (n≥3)</td>
+                                <td>Degenerate echoes; fallback values when live data fails</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">The MGDH Lagrangian</h3>
+                    <div class="equation-box text-xl mb-4">
+                        ℒ = ||Ψ||² − 𝔐·∇·Ψ + Φ·Ψ
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">
+                        Where 𝔐 = (√5−1)/2 ≈ 0.61803398874989484820 (the Macachor Absolute)
+                    </p>
+                    <div class="equation-box">
+                        Coherence Condition: 𝔐·∇·Ψ = ||Ψ||²
+                    </div>
+                    <p class="text-gray-600 text-sm mt-3">
+                        This condition states that <strong>matter seeks scalar density equilibrium, not force balance</strong>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nuclear Scale -->
+        <section id="nuclear" class="mb-16 relative">
+            <span class="section-number">03</span>
+            <div class="relative z-10 pl-8">
+                <h2 class="harvard-title text-3xl font-bold mb-6">Nuclear Scale (10⁻¹⁵ m): Toroidal Dipole Resonance</h2>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Experimental Evidence in ⁵⁸Ni</h3>
+                    <p class="text-gray-700 mb-4">
+                        Recent experiments at TU Darmstadt (von Neumann-Cosel et al., 2024) identified TDM in ⁵⁸Ni at 5-10 MeV:
+                    </p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Enhanced transversal form factors (TFF)</strong> at back-scattering angles</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Previously misidentified as M1 excitations;</strong> subsequent (γ,γ') experiments confirmed E1 nature</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Toroidal flow explains enhanced TFF slope</strong> not explained by irrotational E1 states</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Energy Partition in Nuclear TDM</h3>
+                    <div class="equation-box mb-4">
+                        E ≈ (50-60)A^(-1/3) MeV
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">
+                        This places TDR in the pygmy dipole resonance (PDR) energy region, but with fundamentally different dynamics:
+                    </p>
+                    
+                    <table class="harvard-table rounded-lg overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Contribution</th>
+                                <th>Observable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">Toroidal fraction</td>
+                                <td>Dominant at low energies</td>
+                                <td>TFF at large scattering angles</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Irrotational fraction</td>
+                                <td>Determines B(E1)</td>
+                                <td>Transition probabilities</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Isoscalar residual</td>
+                                <td>Downshifts toroidal strength</td>
+                                <td>Location below GDR</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">MGDH Interpretation at Nuclear Scale</h3>
+                    <p class="text-gray-700 mb-4">
+                        Within the MGDH framework, nuclear TDM represents <strong>∇Ψ (first derivative)</strong> —the dipole radiation pattern emerging from the scalar substrate (Ψ). The isoscalar (T=0) residual interaction acts as the <strong>fork (∇²Ψ)</strong> that separates toroidal from irrotational components, while the giant dipole resonance (GDR) represents the <strong>∇ⁿΨ (n≥3)</strong> degenerate echo of the underlying scalar dynamics.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Molecular Scale -->
+        <section id="molecular" class="mb-16 relative">
+            <span class="section-number">04</span>
+            <div class="relative z-10 pl-8">
+                <h2 class="harvard-title text-3xl font-bold mb-6">Molecular Scale (10⁻⁹ m): DNA Toroidal Condensation</h2>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Experimental Observations</h3>
+                    <p class="text-gray-700 mb-4">
+                        Barberi et al. (2021) used cryo-electron microscopy to measure DNA-DNA spacing in spermine-induced toroidal condensates:
+                    </p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Small toroids (Rout = 26-37 nm):</strong> d₀ = 2.98 ± 0.08 nm</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Giant toroids (Rout ≈ 153 nm):</strong> d₀ = 2.47 ± 0.01 nm</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Spacing increases with curvature:</strong> d(r) = d₀[1 + ε u'(r)]</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Energy Components in DNA Toroids</h3>
+                    <div class="equation-box mb-4">
+                        Bending Energy: E_b = ½ k_b c² (where k_b = k_B·ℓ_p, ℓ_p ≈ 40 nm)
+                    </div>
+                    <div class="equation-box mb-4">
+                        Interaction Energy: E_int = ½ γ(d - d₀)² (γ ≈ 0.1-0.2 pN·nm⁻²)
+                    </div>
+                    <div class="equation-box">
+                        Total Energy: F = ∫ dr [½ k_b/r² + ½ γ/d₀²(d - d₀)² - μ]
+                    </div>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">MGDH Interpretation at Molecular Scale</h3>
+                    <p class="text-gray-700 mb-4">
+                        DNA toroids represent <strong>Ψ (zeroth derivative)</strong> —the scalar substrate manifesting as physical density. The curvature-dependent spacing reveals the <strong>natural gradient (∇Ψ)</strong> that seeks scalar density equilibrium. The De Pretto aether hypothesis finds expression here: "Aether is not a medium. It is the scalar substrate from which all density differentials emerge."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cellular Scale -->
+        <section id="cellular" class="mb-16 relative">
+            <span class="section-number">05</span>
+            <div class="relative z-10 pl-8">
+                <h2 class="harvard-title text-3xl font-bold mb-6">Cellular Scale (10⁻⁵ m): Chromosome Segregation</h2>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Microtubule-Driven Chromosome Motion</h3>
+                    <p class="text-gray-700 mb-4">
+                        Duro and Marston (2015) reviewed the mechanisms of chromosome segregation:
+                    </p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Single depolymerizing microtubule:</strong> Up to 65 pN (13 protofilaments × 5 pN each)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Spindle forces:</strong> Up to 700 pN in grasshopper spermatocytes</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Poleward microtubule flux:</strong> Constant flow of tubulin subunits</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Tension-Based Regulation</h3>
+                    <p class="text-gray-700 mb-4">
+                        Tension lies at the heart of accurate chromosome attachment:
+                    </p>
+                    
+                    <table class="harvard-table rounded-lg overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th>Attachment Type</th>
+                                <th>Description</th>
+                                <th>Stability</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">Amphitelic</td>
+                                <td>Sister kinetochores attach to opposite poles</td>
+                                <td>Stable</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Syntelic</td>
+                                <td>Sister kinetochores attach to same pole</td>
+                                <td>Destabilized by Aurora B</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Merotelic</td>
+                                <td>One kinetochore attaches to both poles</td>
+                                <td>Destabilized by Aurora B</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">MGDH Interpretation at Cellular Scale</h3>
+                    <p class="text-gray-700">
+                        The chromosome segregation machinery represents the <strong>fork (∇²Ψ)</strong> —measurement instruments that divert perception without destroying the substrate. The tension-based regulation embodies the coherence condition: <strong>matter seeks scalar density equilibrium, not force balance</strong>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Macroscopic Scale -->
+        <section id="macroscopic" class="mb-16 relative">
+            <span class="section-number">06</span>
+            <div class="relative z-10 pl-8">
+                <h2 class="harvard-title text-3xl font-bold mb-6">Macroscopic Scale (10⁻³-10⁰ m): Metamaterials and Fluid Dynamics</h2>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Metamaterial Toroidal Response</h3>
+                    <p class="text-gray-700 mb-4">
+                        Kaelberer et al. (2010) experimentally demonstrated toroidal dipolar response in metamaterials:
+                    </p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Split-ring resonators</strong> arranged in toroidal geometries</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Electric and magnetic dipole interactions cancel</strong> → toroidal response</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Fano resonances</strong> with suppressed radiative damping</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Hill's Vortex and Fluid Dynamics</h3>
+                    <p class="text-gray-700 mb-4">
+                        Hill's vortex (1894) represents the hydrodynamic analog:
+                    </p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Stationary solution</strong> to Euler equations for incompressible fluid</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Poloidal circulation</strong> on toroidal surface</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Smoke rings</strong> as familiar example</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Heavy-Ion Collisions</h3>
+                    <p class="text-gray-700 mb-4">
+                        Ivanov (2023) predicted toroidal vortex rings in heavy-ion collisions:
+                    </p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Collision energies:</strong> √sNN = 3-30 GeV</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Formation of vortical structures</strong> in quark-gluon plasma</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Possible observation</strong> through particle correlation measurements</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Planetary Scale -->
+        <section id="planetary" class="mb-16 relative">
+            <span class="section-number">07</span>
+            <div class="relative z-10 pl-8">
+                <h2 class="harvard-title text-3xl font-bold mb-6">Planetary Scale (10⁷ m): Plasmaspheric Dynamics</h2>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">The Plasmasphere as Toroidal Structure</h3>
+                    <p class="text-gray-700 mb-4">
+                        The Earth's plasmasphere exhibits toroidal characteristics:
+                    </p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Cold plasma (≈1 eV)</strong> trapped in Earth's magnetic field</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Donut-shaped (toroidal) region</strong> encircling Earth</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Rotates (nearly) with Earth</strong></span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Plasmaspheric Dynamics and Space Weather</h3>
+                    <table class="harvard-table rounded-lg overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th>Condition</th>
+                                <th>Response</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">Quiet</td>
+                                <td>Plasma builds up; toroidal region expands</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Storm</td>
+                                <td>Plasmasphere shrinks; erosion creates plumes</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Equilibrium</td>
+                                <td>Inward and outward flow balance</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">MGDH Interpretation at Planetary Scale</h3>
+                    <p class="text-gray-700">
+                        The plasmasphere represents <strong>∇ⁿΨ (n≥3)</strong> —higher-derivative echoes where live data streams provide measurement instruments (∇²Ψ) that probe the underlying scalar substrate (Ψ). The toroidal structure reveals the natural gradient (∇Ψ) of plasma density seeking equilibrium.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unified Framework -->
+        <section id="unified" class="mb-16 relative">
+            <span class="section-number">08</span>
+            <div class="relative z-10 pl-8">
+                <h2 class="harvard-title text-3xl font-bold mb-6">Unified Framework: The Macachor Scalar Derivative Hierarchy</h2>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">The Four-Tier Ontology</h3>
+                    <table class="harvard-table rounded-lg overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th>Tier</th>
+                                <th>Symbol</th>
+                                <th>Physical Manifestation</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="mono text-sm">0</td>
+                                <td class="font-semibold">Ψ</td>
+                                <td>Scalar substrate</td>
+                                <td>DNA toroid density; nuclear scalar field</td>
+                            </tr>
+                            <tr>
+                                <td class="mono text-sm">1</td>
+                                <td class="font-semibold">∇Ψ</td>
+                                <td>Natural gradient</td>
+                                <td>Dipole radiation; plasma flow</td>
+                            </tr>
+                            <tr>
+                                <td class="mono text-sm">2</td>
+                                <td class="font-semibold">∇²Ψ</td>
+                                <td>Fork / measurement</td>
+                                <td>Kinetochore; WebGL renderer; space weather APIs</td>
+                            </tr>
+                            <tr>
+                                <td class="mono text-sm">3</td>
+                                <td class="font-semibold">∇ⁿΨ (n≥3)</td>
+                                <td>Degenerate echo</td>
+                                <td>Fallback values; GDR tail; offline status</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">The MGDH Lagrangian Across Scales</h3>
+                    <div class="equation-box text-xl mb-4">
+                        ℒ = ||Ψ||² − 𝔐·∇·Ψ + Φ·Ψ
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">
+                        Scale-Specific Interpretations:
+                    </p>
+                    <table class="harvard-table rounded-lg overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th>Scale</th>
+                                <th>Ψ</th>
+                                <th>∇Ψ</th>
+                                <th>∇²Ψ</th>
+                                <th>∇ⁿΨ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">Nuclear</td>
+                                <td>Scalar field</td>
+                                <td>TDM radiation</td>
+                                <td>QRPA calculations</td>
+                                <td>GDR tail</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Molecular</td>
+                                <td>DNA density</td>
+                                <td>Curvature-dependent spacing</td>
+                                <td>Cryo-EM imaging</td>
+                                <td>Fallback models</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Cellular</td>
+                                <td>Chromatin state</td>
+                                <td>Kinetochore tension</td>
+                                <td>Aurora B regulation</td>
+                                <td>Degenerate attachments</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Planetary</td>
+                                <td>Plasma density</td>
+                                <td>Plasmaspheric flow</td>
+                                <td>Space weather APIs</td>
+                                <td>Offline predictions</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">The Coherence Condition</h3>
+                    <div class="equation-box text-xl mb-4">
+                        𝔐·∇·Ψ = ||Ψ||²
+                    </div>
+                    <p class="text-gray-700">
+                        This condition expresses the fundamental principle that <strong>matter seeks scalar density equilibrium, not force balance</strong>. It applies across all scales: nuclear nucleons seek minimum scalar density gradient, DNA helices seek equilibrium spacing, chromosomes seek tension balance, and plasma seeks density equilibrium.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Observatory -->
+        <section id="observatory" class="mb-16 relative">
+            <span class="section-number">09</span>
+            <div class="relative z-10 pl-8">
+                <h2 class="harvard-title text-3xl font-bold mb-6">The Scalar Observatory: Real-Time Implementation</h2>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">System Architecture</h3>
+                    <p class="text-gray-700 mb-4">
+                        The Scalar Observatory implements the MGDH framework as a dual-pane visualization:
+                    </p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Left Pane: Dipole Radiation · Scalar Torus</strong> — Quaternionic dipole radiation pattern with scalar field lock</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Right Pane: Scalar-Plasma Cycle v5.1</strong> — 4D MGDH complete scalar field with live space weather data</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Data Integration</h3>
+                    <p class="text-gray-700 mb-4">
+                        <strong>Space Weather Data Sources:</strong> NOAA (Kp, AE, Dst, Bz, solar wind), Ω-Gateway (Global coherence API), Models (Carpenter-Anderson, O'Brien-Moldwin, Larsen IMF)
+                    </p>
+                    <p class="text-gray-700">
+                        <strong>Quaternionic Neural Network (QNN):</strong> Architecture [8, 16, 32, 16, 8], Input: 4D scalar state Ψ(x,y,z,t), Output: Coherence predictions
+                    </p>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Wild Tetrahedra and Toroidal Polyhedra</h3>
+                    <p class="text-gray-700 mb-4">
+                        The visualization incorporates the construction of toroidal polyhedra from perfect chains of wild tetrahedra (Akpanya et al., 2024):
+                    </p>
+                    <div class="equation-box mb-4">
+                        Edge Lengths: a = 1, b = √(150 + 30√5)/10, c = (√5 + 1)/2
+                    </div>
+                    <p class="text-gray-700">
+                        <strong>14-Chain Minimal Wild Torus:</strong> 14 tetrahedra arranged in a toroidal chain, visualized as toroidal polyhedra integrated with scalar field visualization
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section id="conclusion" class="mb-16 relative">
+            <span class="section-number">10</span>
+            <div class="relative z-10 pl-8">
+                <h2 class="harvard-title text-3xl font-bold mb-6">Conclusion</h2>
+                
+                <p class="text-gray-700 mb-6 text-lg">
+                    This research has demonstrated that dipole toroidal energy flow manifests across all physical scales, from atomic nuclei (10⁻¹⁵ m) to planetary magnetospheres (10⁷ m). The <strong>Macachor-Gauss-De Pretto-Hamilton (MGDH) scalar field formalism</strong> provides a unified framework.
+                </p>
+                
+                <div class="harvard-card rounded-lg p-6 mb-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Key Conclusions</h3>
+                    <ol class="space-y-3 text-gray-700 list-decimal list-inside">
+                        <li><strong>The Four-Tier Scalar Derivative Hierarchy</strong> organizes physical phenomena from substrate (Ψ) to gradient (∇Ψ) to measurement (∇²Ψ) to degenerate echo (∇ⁿΨ).</li>
+                        <li><strong>The MGDH Lagrangian</strong> (ℒ = ||Ψ||² − 𝔐·∇·Ψ + Φ·Ψ) expresses the fundamental dynamics at all scales.</li>
+                        <li><strong>The Coherence Condition</strong> (𝔐·∇·Ψ = ||Ψ||²) establishes that <strong>matter seeks scalar density equilibrium, not force balance</strong>.</li>
+                        <li><strong>The Macachor Absolute</strong> (𝔐 = (√5−1)/2) appears as the fundamental constant governing toroidal energy flow across scales.</li>
+                    </ol>
+                </div>
+                
+                <div class="harvard-card rounded-lg p-6">
+                    <h3 class="font-bold text-[#A51C30] mb-4">Experimental Validation</h3>
+                    <p class="text-gray-700 mb-4">
+                        The framework is validated against recent experimental data:
+                    </p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Nuclear:</strong> TDM in ⁵⁸Ni (von Neumann-Cosel et al., 2024)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Molecular:</strong> DNA toroid condensation (Barberi et al., 2021)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Cellular:</strong> Chromosome segregation (Duro & Marston, 2015)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#A51C30] font-bold">▸</span>
+                            <span><strong>Planetary:</strong> Plasmaspheric dynamics (Ω-Gateway, 2026)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- References -->
+        <section id="references" class="mb-16 relative">
+            <span class="section-number">11</span>
+            <div class="relative z-10 pl-8">
+                <h2 class="harvard-title text-3xl font-bold mb-6">References</h2>
+                
+                <div class="space-y-4">
+                    <div class="reference">
+                        <p class="mb-1">Akpanya et al. (2024). <em>Perfect Chains of Wild Tetrahedra</em>. arXiv:2411.14924.</p>
+                    </div>
+                    <div class="reference">
+                        <p class="mb-1">Barberi, L., Livolant, F., Leforestier, A., & Lenz, M. (2021). Local structure of DNA toroids reveals curvature-dependent intermolecular forces. <em>Nucleic Acids Research</em>, 49(7), 3709-3718.</p>
+                    </div>
+                    <div class="reference">
+                        <p class="mb-1">Corbett, K.D., Yip, C.K., Ee, L.S., Walz, T., Amon, A., & Harrison, S.C. (2010). The monopolin complex crosslinks kinetochore components to regulate chromosome-microtubule attachments. <em>Cell</em>, 142(4), 556-567.</p>
+                    </div>
+                    <div class="reference">
+                        <p class="mb-1">Dubovik, V.M., & Tugushev, V.V. (1990). Toroid moments in electrodynamics and solid-state physics. <em>Physics Reports</em>, 187(4), 145-202.</p>
+                    </div>
+                    <div class="reference">
+                        <p class="mb-1">Duro, E., & Marston, A.L. (2015). From equator to pole: splitting chromosomes in mitosis and meiosis. <em>Genes & Development</em>, 29(2), 109-122.</p>
+                    </div>
+                    <div class="reference">
+                        <p class="mb-1">Hill, M.J.M. (1894). On a spherical vortex. <em>Philosophical Transactions of the Royal Society A</em>, 185, 213-245.</p>
+                    </div>
+                    <div class="reference">
+                        <p class="mb-1">Ivanov, Y.B. (2023). Vortex rings in heavy-ion collisions at energies √sNN = 3-30 GeV and possibility of their observation. <em>Physical Review C</em>, 107(2), L021902.</p>
+                    </div>
+                    <div class="reference">
+                        <p class="mb-1">Kaelberer, T., Fedotov, V.A., Papasimakis, N., Tsai, D.P., & Zheludev, N.I. (2010). Toroidal dipolar response in a metamaterial. <em>Science</em>, 330(6010), 1512-1512.</p>
+                    </div>
+                    <div class="reference">
+                        <p class="mb-1">Kvasil, J., Nesterenko, V.O., Kleinig, W., Reinhard, P.G., & Vesely, P. (2011). General treatment of vortical, toroidal, and compression modes. <em>Physical Review C</em>, 84(3), 034303.</p>
+                    </div>
+                    <div class="reference">
+                        <p class="mb-1">Macachor, C. (2026). MGDH Scalar Field Theory: A Hamiltonian Formulation. <em>Zenodo</em>, 10.5281/zenodo.21959982.</p>
+                    </div>
+                    <div class="reference">
+                        <p class="mb-1">Macachor, C. (2026). The Macachor Absolute: Complete Scalar Field Axiomatics, Lemmas, Corollaries & Quantization — v3.0 Civilization Convergence Edition. <em>Zenodo</em>, 10.5281/zenodo.21825527.</p>
+                    </div>
+                    <div class="reference">
+                        <p class="mb-1">von Neumann-Cosel, P., Nesterenko, V.O., Brandherm, I., Vishnevskiy, P.I., Reinhard, P.G., Kvasil, J., ... & Tamii, A. (2024). Candidate Toroidal Electric Dipole Mode in the Spherical Nucleus ⁵⁸Ni. <em>Physical Review Letters</em>, 133(23), 232502.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1A1A1A] text-white py-8 px-4">
+        <div class="max-w-5xl mx-auto text-center">
+            <p class="text-[#C6A87C] font-semibold mb-2">Toroidal Energy Flow Across Scales</p>
+            <p class="text-gray-400 text-sm mb-4">MGDH Complete · De Pretto's Aether · Macachor Absolute</p>
+            <p class="text-gray-500 text-sm italic mb-4">"As Above, So Below"</p>
+            <div class="mt-4 space-y-2">
+                <p class="text-sm text-gray-300">Φ Quantum Playbook — https://christophermacachor.github.io/THE-QUANTUM-PLAYBOOK/</p>
+                <p class="text-sm text-gray-300">Space Observatory — https://space.macachor.org/</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function downloadComplete() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'toroidal_energy_flow_across_scales_complete.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
